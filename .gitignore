@@ -19,6 +19,8 @@ target/
 
 # Spring Boot / runtime junk
 
+HELP.md
+
 *.log
 *.tmp
 *.bak
