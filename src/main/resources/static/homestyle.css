@@ -1,16 +1,15 @@
-
 /* globale variabler/værdier */
-:root{
-    --panel: rgba(255,255,255,.08);
-    --panel-strong: rgba(255,255,255,.12);
-    --text: #e9eef8;
+:root {
+    --panel: rgba(255, 255, 255, .08);
+    --panel-strong: rgba(255, 255, 255, .12);
+    --text: #ffffff;
     --muted: #cce3d7;
     --accent: #016946;
-    --hover-accent: #a27b1e;
+    --hover-accent: #785947;
     --hover-text: #014f34;
     --ring: transparent;
-    --border: rgba(255,255,255,.15);
-    --shadow: 0 10px 30px rgba(0,0,0,.35);
+    --border: rgba(255, 255, 255, .15);
+    --shadow: 0 10px 30px rgba(0, 0, 0, .35);
     --radius: 14px;
     --radius-lg: 18px;
     --gap: clamp(.75rem, 1.2vw, 1rem);
@@ -18,236 +17,302 @@
     --hover-bridge: 18px;
 }
 
+
+
 /* inkluder padding og border i calculation af elements højde og bredde */
-*{box-sizing:border-box;margin:0;padding:0}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+}
 
 /* Når indhold i et element overskrider grænserne så vis ikke det overskredne */
-html,body{height:100%; overflow-x:hidden;}
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+}
 
-/* Style til page background */
-body{
+/* outline til keyboard navigation */
+a:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
 
-    /* Font */
-    font-family:'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-    font-size:16px; line-height:1.5;
-    color:var(--text);
+/* bla Font for body */
+body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #fff;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
 
-    /* Baggrundsbillede med link til fil i static directory */
-    background-image: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('pexels-jplenio-4586932_journey_standard.jpg?auto=compress&cs=tinysrgb&dpr=2&h=1080&w=1920');
-    background-position: center center;
+
+/* blur baggrunds image men uden at blur text som ligger oven på */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url('pexels-mikhail-nilov-8543136_hands_holding_plant.jpg?auto=compress&cs=tinysrgb&dpr=2&h=1080&w=1920');
+    /*background-position: center center;*/
+    background-position: center 3%;
     background-repeat: no-repeat;
     background-size: cover;
-    background-attachment: fixed;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
+    transform: scale(1.05);
+    z-index: -1;
+    filter: blur(0);
+    animation: blurAndDarken 1s ease forwards;
+    animation-delay: 1.5s;
 }
 
-/* Til overliggende menu bar */
-.site-header{
-    position:sticky; top:0; z-index:999; /* ensure dropdowns show above */
-    backdrop-filter:saturate(140%) blur(10px);
-    background: linear-gradient(to bottom, rgba(1,105,70,0.88) 0%, rgba(1,105,70,0.5) 40%, rgba(1,105,70,0.0) 100%);
+/* fra og til værdier for blur animation refereret i body::before
+   Dvs blur af baggrundsimage */
+@keyframes blurAndDarken {
+    from {
+        filter: blur(0);
+        background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+        url('pexels-mikhail-nilov-8543136_hands_holding_plant.jpg?auto=compress&cs=tinysrgb&dpr=2&h=1080&w=1920');
+    }
+    to {
+        filter: blur(8px);
+        background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+        url('pexels-mikhail-nilov-8543136_hands_holding_plant.jpg?auto=compress&cs=tinysrgb&dpr=2&h=1080&w=1920');
+    }
+}
+
+/* header til overliggende top menu navigation bar */
+.site-header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    background: var(--accent);
     transition: background 0.3s ease;
-    padding-top: 0.05rem;
-    padding-bottom: 0.05rem;
+    padding: 0.35rem 1.5rem;
 }
 
-
-/* Til overliggende menu bar */
-.nav{
-    max-width:1100px;
-    margin:0 auto;
-    padding:.1rem clamp(.75rem,2.5vw,1.25rem);
-    display:flex;
-    align-items:flex-start;
-    gap:var(--gap);
-    justify-content:flex-end;
+/* navigation bar */
+.nav {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: .1rem clamp(.75rem, 2.5vw, 1.25rem);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--gap);
+    justify-content: flex-end;
 }
 
+/* unordered / bullet list i navigation bar (som bliver horisontal) */
 .nav-list {
-    list-style:none;
-    display:flex;
-    gap:.4rem;
+    list-style: none;
+    display: flex;
+    gap: .4rem;
 }
 
+/* punkterne/teksterne på listen */
 .nav-item {
-    position:relative;
+    position: relative;
 }
 
-.nav-item::after {
-    content:"";
-    position:absolute;
-    left:-12px;
-    right:-12px;
-    top:100%;
-    height: var(--hover-bridge);
-}
 
+/* punkterne/teksterne på listen */
 .nav-link {
-    display:flex;
-    align-items:center;
-    gap:.4rem;
-    text-decoration:none;
-    color:inherit;
-    font-weight:600;
-    padding:.3rem .8rem;
-    border-radius:10px;
-    border:1px solid transparent;
-    transition:background .2s ease, border .2s ease, color .2s ease
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    text-decoration: none;
+    color: inherit;
+    font-weight: 600;
+    padding: .3rem .8rem;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: background .2s ease, border .2s ease, color .2s ease
 }
 
-.nav-link:hover, .nav-item:hover > .nav-link, .nav-item:has(.flyout :focus) > .nav-link{ background:var(--hover-accent); color:var(--hover-text); }
+/* værdier for når mus pege på link i navigation bar
+   eller på felt hvor link er i
+   eller på selve udfoldede fly-out til et link
+   med reference til værdierne i toppen af css file
+ */
+.nav-link:hover,
+.nav-item:hover > .nav-link,
+.nav-item:has(.flyout :focus) > .nav-link {
+    background: var(--hover-accent);
+    color: var(--hover-text);
+}
 
 
 /* Til fly-out felt til Om Danmark mod madspild */
-.flyout{
-    position:absolute;
-    left:50%;
-    transform:translateX(-50%) translateY(12px);
-    opacity:0;
-    pointer-events:none;
-    transition:opacity .18s ease, transform .22s ease;
-    top:calc(100% + 2px);
-    width:320px;
-    max-width:90vw; z-index:1000;
+.flyout {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) translateY(12px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .18s ease, transform .22s ease;
+    top: calc(100% + 2px);
+    width: 320px;
+    max-width: 90vw;
+    z-index: 1000;
 }
 
+/* til teksten i fly-out */
 .flyout.flyout--text {
-    width:min(680px, 92vw);
+    width: min(680px, 92vw);
 }
 
-.nav-item:hover > .flyout, .nav-item:has(.flyout :focus) > .flyout{ opacity:1; transform:translateX(-50%) translateY(0); pointer-events:auto; }
+/* fold fly-out ud når mus pege på link
+   og hold det folder ud når bagefter flytte mus fra link til fly-out
+   transform til at få flyout foldet ud og så lige hoppe en tand opad på plads */
+.nav-item:hover > .flyout,
+.nav-item:has(.flyout :focus) > .flyout {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+}
 
-
-
+/* ramme og baggrund for fly-out */
 .panel {
-    position:relative;
-    background:rgba(255,255,255,.08);
-    border:1px solid var(--border);
-    border-radius:var(--radius-lg);
-    box-shadow:var(--shadow);
-    overflow:hidden;
-    backdrop-filter:blur(10px) saturate(140%);
+    position: relative;
+    background: #016946B0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    backdrop-filter: blur(10px) saturate(140%);
 }
 
+/* padding til tekst i fly-out */
 .flyout-content {
-    padding:16px 18px;
-    font-size:0.95rem;
-    line-height:1.6;
-    color:var(--text);
+    font-size: 16px;
+    font-family: "Plus Jakarta Sans", Arial, serif;
+    padding: 30px 30px;
+    text-align: justify;
+    line-height: 0.9;
+    color: var(--text);
+
 }
 
+/* for <p tekst i fly-out */
 .flyout-content p {
-    margin:0 0 .6rem 0;
-}
-
-.flyout-content p:last-child {
-    margin-bottom:0;
-}
-
-.flyout::after {
-    content:"";
-    position:absolute;
-    top:-8px;
-    left:50%;
-    transform:translateX(-50%);
-    width:16px;
-    height:16px;
-    background:var(--panel);
-    border-left:1px solid var(--border);
-    border-top:1px solid var(--border);
-    rotate:45deg;
+    margin: 1rem 0 0.6rem 0;
+    line-height: 0.9;
 }
 
 
-
-/* Til drop-down Log ind */
+/* Til drop-down Log ind i navigation bar */
 .list {
-    list-style:none;
-    margin:0;
-    padding:8px;
+    list-style: none;
+    margin: 0;
+    padding: 8px;
+    font-size: 16px;
+    font-family: "Plus Jakarta Sans", Arial, serif;
+    line-height: 0.9;
+    text-align: justify;
 }
 
+/* Til drop-down Log ind i navigation bar */
 .list a {
-    display:flex;
-    align-items:center;
-    text-decoration:none;
-    color:inherit;
-    padding:10px 12px;
-    border-radius:12px;
-    border:1px solid transparent;
-    transition:background .2s ease, border .2s ease, color .2s ease;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    /*transition: background .2s ease, border .2s ease, color .2s ease;*/
+
 }
 
+/* Til drop-down Log ind i navigation bar, hover */
 .list a:hover {
-    background:var(--hover-accent);
-    color:var(--hover-text);
+    background: var(--hover-accent);
+    color: var(--hover-text);
 }
 
 
-a:focus {
-    outline:none;
-    box-shadow:none !important;
+
+
+
+/* layer oven på baggrund til at have slogan tekst på */
+.hero-content {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: calc(3vh);
+    z-index: 10;
+    pointer-events: none;
 }
 
-
-/* Til flyout */
-.nav-link:focus, .list a:focus {
-    box-shadow:none !important;
-    outline:none;
-}
-
-
-/* Til knap i Om Danmark mod madspild */
-.start-btn{
-    display:inline-block;
-    background: var(--accent);
-    color: #ffffff;
-    font-weight: 700;
-    font-size: 1rem;
-    padding: .9rem 1.4rem;
-    border: none;
-    border-radius: 9999px;
-    cursor: pointer;
-    box-shadow: 0 6px 16px rgba(1,105,70,.35);
-    transition: transform .12s ease, box-shadow .2s ease, background .2s ease;
-}
-
-.start-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 10px 22px rgba(1,105,70,.45);
-}
-
-.start-btn:active {
-    transform: translateY(0);
-}
-
-.start-btn:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(255,184,107,.45);
-}
-
-
-/* Til slogan */
+/* til slagon tekst generelt */
 .hero-text {
     text-align: center;
-    font-size: clamp(1.3rem, 4vw, 2.5rem);
-    font-weight: 600;
-    color: rgba(255,255,255,0.9);
-    text-shadow: 0 4px 20px rgba(0,0,0,0.6);
-    /*max-width: 900px;*/
-    margin: 25vh auto 10vh;
-    /*padding: 0 5rem;*/
-    line-height: 1.2;
-    animation: fadeIn 4s ease forwards;
-    white-space: nowrap;
+    pointer-events: auto;
 }
 
-/* Til animationen i hero-text som er slogan */
-@keyframes fadeIn {
-    from {opacity: 0; transform: translateY(20px);}
-    to {opacity: 1; transform: translateY(0);}
+
+/* Til <h1 i slogan
+   Dvs store tekst: Danmark mod madspild */
+.hero-text h1 {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    /*text-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);*/
+    margin: 0 0 1rem 0;
+    opacity: 0;
+    /* hvor lang tid fade in tager */
+    animation: fadeInText 2s ease forwards;
+    /* hvor lang tid fra load page til fade ind starter */
+    animation-delay: 2.5s;
 }
 
+
+/* Til <p i slogan
+   Dvs mindre tekst: Hjælp maden med at nå...  */
+.hero-text p {
+    font-size: clamp(1.1rem, 2.5vw, 2rem);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    /*text-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);*/
+    opacity: 0;
+    transform: translateY(10px);
+    /* hvor lang tid fade in tager */
+    animation: fadeInSub 2s ease forwards;
+    /* hvor lang tid fra load page til fade ind starter */
+    animation-delay: 3.5s;
+}
+
+/* Fra og til værdier for animation refereret i .hero-text h1
+   Dvs til Danmark mod madspild */
+@keyframes fadeInText {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fra og til værdier for animation refereret i .hero-text p
+   Dvs til: Hjælp maden frem til en ... */
+@keyframes fadeInSub {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

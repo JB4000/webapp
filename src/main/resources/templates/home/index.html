@@ -15,38 +15,72 @@
 
 <body>
 
-<!-- Overliggende menu -->
+<!-- top menu navigation bar -->
 <header class="site-header">
     <nav class="nav" aria-label="Primary">
 
-        <!-- unordered list / bullet list starter -->
+        <!-- unordered list / bullet list (som bliver horisontal) starter -->
         <ul class="nav-list" role="menubar" aria-label="Main">
 
-            <!-- Fly-out: Om Danmark mod madspild -->
+            <!-- Fly-out: Hvad er problemet -->
             <li class="nav-item" role="none">
-                <a class="nav-link" role="menuitem" aria-haspopup="true" aria-expanded="false" href="#">Om Danmark mod madspild ▾</a>
-                <div class="flyout flyout--text" role="dialog" aria-label="Om Danmark mod madspild">
+                <a class="nav-link" role="menuitem" aria-haspopup="true" aria-expanded="false" href="#">Hvad er problemet ▾</a>
+                <div class="flyout flyout--text" role="dialog" aria-label="Hvad er problemet">
                     <div class="panel">
 
-                        <!-- Tekst i fly-out feltet til: Om Danmark mod madspild -->
+                        <!-- Tekst i fly-out feltet til: Hvad er problemet
+                             Linjer af tekst som er hentet fra HomeInfo object
+                             via Spring model interface og Thymeleaf -->
                         <div class="flyout-content" role="document">
 
-                            <b th:text="${About.header}">Default header</b>
-                            <p th:text="${About.line_1}">Default line</p>
-                            <p th:text="${About.line_2}">Default line</p>
-                            <p th:text="${About.line_3}">Default line</p>
-                            <p th:text="${About.line_4}">Default line</p>
-                            <p th:text="${About.line_5}">Default line</p>
-
-
-                            <!-- Knap under teksten i fly-out feltet -->
-                            <p style="margin-top:.8rem">
-                                <button class="start-btn"
-                                    onclick="window.location.href='/'">
-                                    Start rejsen mod mindre madspild
-                                </button>
-                            </p>
+                            <b th:text="${Problem.header}">Default header</b>
+                            <p th:text="${Problem.line1}">Default body line</p>
+                            <p th:text="${Problem.line2}">Default body line</p>
+                            <p th:text="${Problem.line3}">Default body line</p>
+                            <p th:text="${Problem.line4}">Default body line</p>
+                            <p th:text="${Problem.line5}">Default body line</p>
                         </div>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Fly-out: Hvad gør Danmark mod madspild ved det -->
+            <li class="nav-item" role="none">
+                <a class="nav-link" role="menuitem" aria-haspopup="true" aria-expanded="false" href="#">Hvad gør Danmark mod madspild ved det ▾</a>
+                <div class="flyout flyout--text" role="dialog" aria-label="Hvad gør Danmark mod madspild ved det">
+                    <div class="panel">
+
+                        <!-- Tekst i fly-out feltet til: Hvad gør Danmark mod madspild ved det
+                        Linjer af tekst som er hentet fra HomeInfo object
+                        via Spring model interface og Thymeleaf -->
+
+                        <div class="flyout-content" role="document">
+
+                            <h1 th:text="${Solution.header}">Default header</h1>
+                            <p th:text="${Solution.line1}">Default body line</p>
+                            <p th:text="${Solution.line2}">Default body line</p>
+                            <p th:text="${Solution.line3}">Default body line</p>
+                            <p th:text="${Solution.line4}">Default body line</p>
+                            <p th:text="${Solution.line5}">Default body line</p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Drop-down: Registrer. Her er background anderledes for at fremhæve
+            og derfor skal også hover tekst være anderledes for at den bliver synlig
+            det er ordnet med inline style -->
+            <li class="nav-item" role="none">
+                <a class="nav-link" style="background-color: #014f34; --hover-text:#e9eef8; --hover-accent:#026243;" role="menuitem" aria-haspopup="true" aria-expanded="false" href="#">Registrer ▾</a>
+
+                <div class="flyout" role="dialog" aria-label="Registrer">
+                    <div class="panel">
+
+                        <!-- unordered list / bullet list i drop down -->
+                        <ul class="list" role="list">
+                            <li><a href="/">Registrer Privat</a></li>
+                            <li><a href="/">Registrer Virksomhed</a></li>
+                        </ul>
                     </div>
                 </div>
             </li>
@@ -66,17 +100,18 @@
                     </div>
                 </div>
             </li>
+
         </ul>
     </nav>
 </header>
 
+<!-- Slogan tekst -->
+<div class="hero-content">
+    <div class="hero-text">
+        <h1>Danmark mod madspild</h1>
+        <p>Hjælp maden med at nå hele vejen frem til en tallerken</p>
+    </div>
+</div>
 
 
 
-
-<!-- Slogan text -->
-<main>
-    <h1 class="hero-text">Din mad har rejst for langt til ikke at ramme din tallerken</h1>
-</main>
-</body>
-</html>
