@@ -4,113 +4,291 @@
     <meta charset="UTF-8">
     <title>Danmark Mod Madspild</title>
 
-    <link rel="stylesheet" href="homestyle.css">
-
+    <link rel="stylesheet" href="/homestyle.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
+        input {
+            padding: 10px;
+            width: 100%;
+            font-size: 17px;
+            border: 1px solid #aaaaaa;
+        }
+
+        input.invalid {
+            background-color: #ffdddd;
+        }
+
+        .tab {
+            display: none;
+        }
+
+        .step {
+            height: 15px;
+            width: 15px;
+            margin: 0 2px;
+            background-color: #bbbbbb;
+            border: none;
+            border-radius: 50%;
+            display: inline-block;
+            opacity: 0.5;
+        }
+
+        .step.active {
+            opacity: 1;
+        }
+
+        .step.finish {
+            background-color: #04AA6D;
+        }
 
         .flex-center {
             display: flex;
-            justify-content: center; /* horizontal center */
-            align-items: center;     /* vertical center */
-            margin: auto 0;
-            max-width: 2400px;
+            justify-content: left;
+            align-items: center;
+            min-height: 80vh;
+            position: relative;
+            z-index: 1;
+            margin-left: 8%;
+            margin-bottom: 2%;
         }
+
         .container {
             display: flex;
             flex-direction: column;
-            background-color: rgba(0, 0, 0, 0.45); /* black, 50% opacity */
-            border-radius: 10px; /* optional, looks nicer */
-            padding: 1.5rem;     /* some space inside */
-        }
-        hr {
-            margin: 1.5rem 0; /* top & bottom spacing */
-            border: none;     /* remove default border style */
-            border-top: 2px solid #ccc; /* optional: custom line style */
-        }
-        body{
-            background-image: url('/pexels-snapwire-730897_journey_grass.jpg?auto=compress&cs=tinysrgb&dpr=2&h=1080&w=1920');
+            justify-content: left;
+            background-color: rgba(1,105,70,1);
+            border-radius: 5px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 2;
         }
 
+        .container h1 {
+            text-align: center;
+        }
+
+        .error-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #ffdddd;
+            color: #900;
+            padding: 1.5rem 2rem;
+            border: 2px solid #900;
+            border-radius: 8px;
+            z-index: 1000;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .error-popup button {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: #900;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        body {
+            background-image: none;
+            margin: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .site-header {
+            background: rgba(1,105,70,1);
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .side-image {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 45%;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .side-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .side-image::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 150px;
+            height: 100%;
+
+        }
+
+        @media (max-width: 900px) {
+            .side-image {
+                position: relative;
+                width: 100%;
+                height: 250px;
+            }
+
+            .side-image::before {
+                display: none;
+            }
+
+            .flex-center {
+                margin-left: 0;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
     </style>
-
-
 </head>
 <body>
-
-<!-- Overliggende menu -->
 <header class="site-header">
     <nav class="nav" aria-label="Primary">
-
-        <!-- unordered list / bullet list starter -->
         <ul class="nav-list" role="menubar" aria-label="Main">
-
-            <!-- Fly-out: Om Danmark mod madspild -->
             <li class="nav-item" role="none">
-                <a class="nav-link" role="menuitem" aria-haspopup="true" aria-expanded="false" href="#">Om Danmark mod madspild ▾</a>
-                <div class="flyout flyout--text" role="dialog" aria-label="Om Danmark mod madspild">
-                    <div class="panel">
-
-                        <!-- Tekst i fly-out feltet til: Om Danmark mod madspild -->
-                        <div class="flyout-content" role="document">
-
-                            <b th:text="${About.header}">Default header</b>
-                            <p th:text="${About.line_1}">Default line</p>
-                            <p th:text="${About.line_2}">Default line</p>
-                            <p th:text="${About.line_3}">Default line</p>
-                            <p th:text="${About.line_4}">Default line</p>
-                            <p th:text="${About.line_5}">Default line</p>
-
-
-                            <!-- Knap under teksten i fly-out feltet -->
-                            <p style="margin-top:.8rem">
-                                <button class="start-btn"
-                                        onclick="window.location.href='/'">
-                                    Start rejsen mod mindre madspild
-                                </button>
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                <a class="nav-link" role="menuitem" aria-haspopup="true" aria-expanded="false" href="#">▾</a>
             </li>
         </ul>
     </nav>
 </header>
 
-
+<form id="regForm" action="">
     <div class="flex-center">
-    <div class="container">
+        <div class="container">
+            <h1>Register:</h1>
 
-        <h1>Register</h1>
-        <p>Please fill in this form to create an account.</p>
-        <hr>
+            <div class="tab">Name:
+                <p><input placeholder="First name..."></p>
+                <p><input placeholder="Last name..."></p>
+            </div>
 
-        <label for="email"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" name="email" id="email" required>
+            <div class="tab">Contact Info:
+                <p><input placeholder="E-mail..."></p>
+                <p><input placeholder="Phone Number..."></p>
+            </div>
 
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+            <div class="tab">Company Information:
+                <p><input placeholder="Company Name..."></p>
+                <p><input placeholder="Company Address..."></p>
+                <p><input placeholder="Company Type..."></p>
+            </div>
 
-        <label for="psw-repeat"><b>Repeat Password</b></label>
-        <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
+            <div class="tab">Login Info:
+                <p><input placeholder="Username..."></p>
+                <p><input type="password" placeholder="Password..."></p>
+                <p><input type="password" placeholder="Repeat Password..."></p>
+            </div>
 
-        <label for="cpn"><b>Company Name</b></label>
-        <input type="text" placeholder="Enter Company Name" name="cpn" id="cpn" required>
+            <div style="display: flex; justify-content: flex-end; margin-top: 1rem;">
+                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+            </div>
 
-        <hr>
-        <button type="submit" class="registerbtn">Register</button>
-
+            <div style="text-align:center;margin-top:40px;">
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+            </div>
+        </div>
     </div>
+
+    <div class="side-image">
+        <img src="/pexels-snapwire-730897_journey_grass.jpg" alt="">
     </div>
+</form>
 
+<div id="popup" class="error-popup">
+    <span id="popupMessage"></span><br>
+    <button onclick="closePopup()">OK</button>
+</div>
 
+<script>
+    var currentTab = 0;
+    showTab(currentTab);
 
-    <div class="container signin">
-        <p>Already have an account? <a href="#">Sign in</a>.</p>
-    </div>
+    function showTab(n) {
+        var x = document.getElementsByClassName("tab");
+        x[n].style.display = "block";
+        document.getElementById("prevBtn").style.display = n == 0 ? "none" : "inline";
+        document.getElementById("nextBtn").innerHTML = n == (x.length - 1) ? "Submit" : "Next";
+        fixStepIndicator(n);
+    }
 
+    function nextPrev(n) {
+        var x = document.getElementsByClassName("tab");
+        if (n == 1 && !validateForm()) return false;
+        x[currentTab].style.display = "none";
+        currentTab += n;
+        if (currentTab >= x.length) {
+            document.getElementById("regForm").submit();
+            return false;
+        }
+        showTab(currentTab);
+    }
 
+    function validateForm() {
+        var x, y, i, valid = true;
+        x = document.getElementsByClassName("tab");
+        y = x[currentTab].getElementsByTagName("input");
+
+        for (i = 0; i < y.length; i++) {
+            if (y[i].value == "") {
+                y[i].className += " invalid";
+                valid = false;
+            }
+        }
+
+        if (currentTab === 1) {
+            var email = y[0].value;
+            if (!email.includes('@')) {
+                showPopup("Email must contain '@'");
+                valid = false;
+            }
+        }
+
+        if (currentTab === 3) {
+            var password = y[1].value;
+            var confirmPassword = y[2].value;
+            if (password !== confirmPassword) {
+                showPopup("Passwords do not match");
+                valid = false;
+            }
+        }
+
+        if (valid) document.getElementsByClassName("step")[currentTab].className += " finish";
+        return valid;
+    }
+
+    function fixStepIndicator(n) {
+        var i, x = document.getElementsByClassName("step");
+        for (i = 0; i < x.length; i++) x[i].className = x[i].className.replace(" active", "");
+        x[n].className += " active";
+    }
+
+    function showPopup(message) {
+        document.getElementById('popupMessage').innerText = message;
+        document.getElementById('popup').style.display = 'block';
+    }
+
+    function closePopup() {
+        document.getElementById('popup').style.display = 'none';
+    }
+</script>
 </body>
 </html>
