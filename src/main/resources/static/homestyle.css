@@ -161,17 +161,19 @@ body::before {
     transform: translateX(-50%) translateY(12px);
     opacity: 0;
     pointer-events: none;
-    background: rgba(1, 105, 70, 0.25); /* greenish, transparent */
+    background: rgba(1, 105, 70, 0.90);
     backdrop-filter: blur(5px);
 
     visibility: hidden;
     transition: opacity 0.25s ease, visibility 0.25s ease;
     top: calc(100% + 2px);
-    border-radius: 6px;
+    border-radius: 12px;
     width: 150px;
     /*max-width: 90vw;*/
     max-width: min(92vw, 680px);
     z-index: 1000;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 /* til teksten i fly-out */
@@ -242,14 +244,14 @@ body::before {
 }
 
 
-/* ramme og baggrund for fly-out */
+/* ramme og baggrund for fly-out, som lige nu  ikke bruges mere  */
 .panel {
     position: relative;
-    background: rgba(1, 105, 70, 0.35); /* same green, but transparent */
+    background: rgba(1, 105, 70, 0.55);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow);
-    backdrop-filter: blur(5px); /* extra blur inside */
+    backdrop-filter: blur(5px);
 }
 
 
@@ -384,7 +386,7 @@ body::before {
 
 /* Hvis screen er smallere end 1075, så bliver fly-outs ikke vist
    Dette er en rest fra rode med at lave Responsive Design med fly-outs */
-@media (max-width: 1075px) {
+@media (max-width: 192px) {
 
     .flyout {
         display: none !important;
@@ -392,7 +394,7 @@ body::before {
 }
 
 /* Smooth scroll effect når bruge links til hoppe til sektion 1 og sektion 2 */
-html {
+html, body {
     scroll-behavior: smooth;
 }
 
@@ -526,14 +528,20 @@ html {
 /* image 2 på sektion 2 angives her i CSS for større kontrol med hvordan det fremstår */
 
 .img-solution-2 {
-    /*background-image: url("pexels-abi-ponnappa-151189-15678267_plant_hand-removebg-preview.png");*/
-    background-image: url("pexels-jakob-schlothane-holding-plant-below.png");
+    /*!* hvis vælge hånd som plante gror fra *!*/
+    /*background-image: url("pexels-jakob-schlothane-holding-plant-below.png");*/
+    /*background-position: 75% 30%;*/
+    /*background-size: 55%;*/
+    /*!* image vendes *!*/
+    /*transform: scaleX(-1);*/
 
 
-    background-position: 75% 30%;
+    /* Hvis vælge kvinde som krammer salal */
+    background-image: url("pexels-olia-danilevich-9004739_food_grab.png");
+    background-position: 40% 30%;
     background-size: 55%;
-    /* image vendes */
     transform: scaleX(-1);
+
 }
 
 /* For at gøre responsive. Der er rester her fra tidligere eksperimenter */
@@ -581,6 +589,9 @@ main {
    fordi der lader til at være steder i midten hvor værdierne ændres
    skal lige findes */
 
+
+
+
 :root {
     --panel: rgba(255, 255, 255, .08);
     --panel-strong: rgba(255, 255, 255, .12);
@@ -606,6 +617,7 @@ main {
     --flyout-w: min(1100px, 92vw);
     --hover-bridge: 18px;
     --header-h: 42px;
+
 
 }
 

@@ -17,6 +17,17 @@
 
 <body>
 
+<script>
+    /* ALT+A fører direkte til Manage artikler for org user */
+    document.addEventListener("keydown", function(event) {
+        if (event.altKey && event.key.toLowerCase() === "a") {
+            event.preventDefault();
+            window.location.href = "/";
+        }
+    }
+    );
+</script>
+
 
 
 <!-- top menu navigation bar -->
@@ -87,7 +98,7 @@
                    role="menuitem" aria-haspopup="true" aria-expanded="false" href="/">Registrer ▾</a>
 
                 <div class="flyout" role="dialog" aria-label="Registrer">
-                    <div class="panel">
+
 
                         <!-- unordered list / bullet list i drop down -->
                         <ul class="list" role="list">
@@ -95,14 +106,14 @@
                             <li><a href="/">Registrer Virksomhed</a></li>
                         </ul>
                     </div>
-                </div>
+
             </li>
 
             <!-- Drop-down: Log ind -->
             <li class="nav-item" role="none">
                 <a class="nav-link" role="menuitem" aria-haspopup="true" aria-expanded="false" href="/">Log ind ▾</a>
                 <div class="flyout" role="dialog" aria-label="Log ind">
-                    <div class="panel">
+
 
                         <!-- unordered list / bullet list i drop down -->
                         <ul class="list" role="list">
@@ -110,7 +121,7 @@
                             <li><a href="/">Virksomhed</a></li>
                             <li><a href="/">Admin</a></li>
                         </ul>
-                    </div>
+
                 </div>
             </li>
 
@@ -153,7 +164,8 @@
 
 
             <div class="info-images">
-                <div class="info-img img-problem-1"></div>
+                <div class="info-img img-problem-1" role="img"
+                     aria-label="Fordærvede spilde fødevarer"></div>
                 <div class="info-img img-problem-2"></div>
             </div>
         </div>
@@ -182,7 +194,8 @@
 
 
             <div class="info-images">
-                <div class="info-img img-solution-1"></div>
+                <div class="info-img img-solution-1" role="img"
+                     aria-label="Lokalt mødested hvor folk sammen får brugt fødevarer i tide"></div>
                 <div class="info-img img-solution-2"></div>
             </div>
         </div>
