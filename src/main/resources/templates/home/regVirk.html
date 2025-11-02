@@ -45,28 +45,23 @@
 
         .flex-center {
             display: flex;
-            justify-content: left;
+            justify-content: center;
             align-items: center;
-            min-height: 80vh;
+            min-height: 100vh;
             position: relative;
-            z-index: 1;
-            margin-left: 8%;
-            margin-bottom: 2%;
+            padding: 2rem;
+            width: 55%;
         }
 
         .container {
-            display: flex;
-            flex-direction: column;
-            justify-content: left;
             background-color: rgba(1,105,70,1);
-            border-radius: 5px;
+            border-radius: 8px;
             padding: 2rem;
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            position: relative;
-            z-index: 2;
         }
+
 
         .container h1 {
             text-align: center;
@@ -106,8 +101,30 @@
 
         .site-header {
             background: rgba(1,105,70,1);
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            position: relative;
+        }
+        .nav {
+            display: flex;
+            width: 100%;
+            justify-content: flex-end;
+        }
+
+        .nav-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-item {
+            margin-left: 1rem;
         }
 
         .side-image {
@@ -138,6 +155,8 @@
         }
 
         @media (max-width: 900px) {
+
+
             .side-image {
                 position: relative;
                 width: 100%;
@@ -153,6 +172,10 @@
                 flex-direction: column;
                 align-items: center;
             }
+            .site-header {
+                position: relative;
+            }
+
         }
     </style>
 </head>
