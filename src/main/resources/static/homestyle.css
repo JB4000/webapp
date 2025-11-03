@@ -190,10 +190,13 @@ body::before {
 }
 
 .nav-logo img {
-    height: 38px;
+    /* juster evt højde på logo og dermed top menu her
+    men ret så også gerne --header-h: 42px; i roots */
+    height: 42px;
     width: auto;
     background-color: var(--accent);
-    padding: 4px;
+    border-radius: 12px;
+    padding: 0;
 }
 
 /* Logo bevæger sig når hover */
@@ -348,8 +351,8 @@ body::before {
     font-weight: 800;
     letter-spacing: 0.05em;
     color: #fff;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-    /*text-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);*/
+    /*text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);*/
+    text-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
     margin: 0 0 1rem 0;
     opacity: 0;
     /* hvor lang tid fade in tager */
@@ -366,8 +369,8 @@ body::before {
     font-weight: 400;
     color: rgba(255, 255, 255, 0.9);
     margin: 0;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-    /*text-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);*/
+    /*text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);*/
+    text-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
     opacity: 0;
     transform: translateY(10px);
     /* hvor lang tid fade in tager */
