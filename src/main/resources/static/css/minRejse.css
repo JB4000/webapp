@@ -1,14 +1,14 @@
 /* ================================
-   Simpelt layout og farvetema
+   Farvetema og generelt layout
    ================================ */
 body {
     margin: 0;
-    font-family: Plus Jakarta Sans, Arial, sans-serif;
-    background-color: #016946; /* Mørk tyrkis */
-    color: #ffffff;            /* Hvid tekst */
+    font-family: "Plus Jakarta Sans", Arial, sans-serif;
+    background-color: #016946;
+    color: #ffffff;
 }
 
-/* Header øverst */
+/* Header */
 header {
     text-align: center;
     padding: 1rem;
@@ -20,15 +20,14 @@ header h1 {
     margin-bottom: 0.3rem;
 }
 
-/* Split layout: to kolonner */
+/* Split layout */
 .split {
     display: grid;
-    grid-template-columns: 2fr 1fr; /* venstre dobbelt så bred som højre */
+    grid-template-columns: 2fr 1fr;
     gap: 1.5rem;
     padding: 1.5rem;
 }
 
-/* Mobilvisning: kolonner stables */
 @media (max-width: 800px) {
     .split {
         grid-template-columns: 1fr;
@@ -43,6 +42,7 @@ header h1 {
     padding-bottom: 0.5rem;
 }
 
+/* Kortlayout */
 .card {
     position: relative;
     background-size: cover;
@@ -50,20 +50,19 @@ header h1 {
     color: #fff;
     overflow: hidden;
     min-height: 220px;
-    border: 2px solid rgba(0, 0, 0, 0);
-    border-radius: 9%;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(0, 0, 0, 1);
+    border-radius: 9px;   /* ← fast pixelværdi, ikke % */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
     margin: 1rem 0;
-    padding: 0;
 }
+
 
 .card::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.45);
     backdrop-filter: blur(6px);
-    border-radius: 0;
+    background: rgba(0, 0, 0, 0.45);
     z-index: 0;
 }
 
@@ -71,7 +70,8 @@ header h1 {
     position: relative;
     z-index: 1;
     padding: 1.5rem;
-    line-height: 1.8;
+    line-height: 1.7;
+    padding-bottom: 2.8rem;
 }
 
 .card h3 {
@@ -84,7 +84,7 @@ header h1 {
     bottom: 10px;
     right: 10px;
     background-color: #009e60;
-    border: 1.5px solid rgba(0, 0, 0, 0.7);
+    border: 2px solid rgba(0, 0, 0, 0.7);
     border-radius: 6px;
     color: #fff;
     font-size: 0.9rem;
@@ -107,7 +107,7 @@ header h1 {
 }
 
 /* ================================
-   Statistik sektion
+   Statistik
    ================================ */
 .stats h2 {
     border-bottom: 2px solid #ffffff;
@@ -119,24 +119,22 @@ header h1 {
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
-    background: none;
-    padding: 0;
 }
 
 /* Hvert statistik-kort */
 .stat-card {
     display: flex;
-    flex-direction: row; /* ← Gør layoutet vandret */
+    flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
-    gap: 1rem; /* Lidt luft mellem ikon og tekst */
+    justify-content: center;
+    gap: 1rem;
     background-color: rgba(255, 255, 255, 0.1);
     border: 2px solid rgba(0, 0, 0, 0.7);
     border-radius: 9px;
-    padding: 1rem 1.2rem;
+    padding: 1.2rem;
+    text-align: center;
+    min-height: 100px;
     transition: all 0.3s ease-in-out;
-    min-height: 120px;
-
 }
 
 .stat-card:hover {
@@ -150,23 +148,19 @@ header h1 {
     height: 64px;
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* ← Flyt ikon mod venstre */
-
+    justify-content: flex-start;
 }
 
 .stat-icon img {
     width: 64px;
     height: 64px;
     object-fit: contain;
-    margin-left: 0;
-
+    border-radius:20%;
 }
 
-/* Tekst i statistik-kort */
 .stat-text {
     flex: 1;
     text-align: center;
-
 }
 
 .stat-text b {
@@ -180,13 +174,11 @@ header h1 {
     gap: 0.25rem;
     color: #00ff88;
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     margin-top: 0.3rem;
 }
 
-.icon--arrow {
-    width: 24px;
-    height: 24px;
+.icon--arrow path {
     fill: currentColor;
     stroke: none;
 }
@@ -210,9 +202,8 @@ header h1 {
 }
 
 .fill {
-    background-color: #ffffff;
+    background-color: #00ff88;
     height: 100%;
-    width: 0;
     transition: width 0.5s ease-in-out;
 }
 
