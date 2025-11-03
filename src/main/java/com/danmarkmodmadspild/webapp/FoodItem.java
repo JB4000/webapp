@@ -2,19 +2,42 @@ package com.danmarkmodmadspild.webapp;
 
 import java.time.LocalDateTime;
 
+/**
+ * Model class for one food item in the system.
+ * Used to store info about food that can be picked up.
+ */
 public class FoodItem {
+
+    // unique id for item
     private String id;
+
+    // name of item, ex "Brød"
     private String name;
+
+    // food type, ex "vegansk"
     private String category;
-    private Integer qty; // antal portioner
-    private Double kg;   // antal kilo
-    private Double price; // pris
+
+    // number of units or portions
+    private Integer qty;
+
+    // weight in kilos
+    private Double kg;
+
+    // price in kr
+    private Double price;
+
+    // time when user can pick up
     private LocalDateTime pickup;
+
+    // short text about item, ex allergy info
     private String desc;
 
+    // empty constructor for forms (Spring needs this)
     public FoodItem() {}
 
-    public FoodItem(String id, String name, String category, Integer qty, Double kg, Double price, LocalDateTime pickup, String desc) {
+    // full constructor for creating a food item
+    public FoodItem(String id, String name, String category, Integer qty,
+                    Double kg, Double price, LocalDateTime pickup, String desc) {
         this.id = id;
         this.name = name;
         this.category = category;
@@ -25,6 +48,7 @@ public class FoodItem {
         this.desc = desc;
     }
 
+    // getters and setters (used by Spring to read/write values)
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 

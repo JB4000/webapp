@@ -1,4 +1,4 @@
-/* --- Tema --- */
+/* farve tema og variabler */
 :root{
     --green-700:#2f7d32;
     --green-600:#369a3a;
@@ -12,7 +12,7 @@
     --round:18px;
 }
 
-/* --- Baggrundsbillede --- */
+/* baggrund med billede og lys filter */
 body::before{
     content:"";
     position:fixed; inset:0;
@@ -23,15 +23,16 @@ body::before{
     filter:saturate(1.05);
 }
 
-/* --- Base --- */
+/* reset og base styling */
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
     margin:0;
-    font:16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+    font:16px/1.5 system-ui;
     color:var(--ink-900);
 }
 
+/* titel sektion */
 .topbar{
     padding:24px 16px 8px;
     text-align:center;
@@ -39,6 +40,7 @@ body{
 .topbar h1{ margin:0 0 6px; font-size:clamp(22px,3.2vw,34px); }
 .subtitle{ margin:0; color:var(--ink-500); }
 
+/* centrering af indhold */
 .container{
     width:min(1000px, 92%);
     margin: 12px auto 64px;
@@ -46,6 +48,7 @@ body{
     gap:16px;
 }
 
+/* kort boks styling */
 .card{
     background:var(--white);
     border-radius:var(--round);
@@ -56,7 +59,7 @@ body{
 
 h2{ margin:0 0 12px; font-size:20px; }
 
-/* Filter-chips + søgning */
+/* filter knapper og sok felt */
 .filters{
     display:flex; flex-wrap:wrap; gap:10px;
     align-items:center;
@@ -65,27 +68,28 @@ h2{ margin:0 0 12px; font-size:20px; }
     margin-left:auto;
     min-width:220px;
     border:1px solid #e6e6e6; border-radius:12px; padding:10px 12px;
-    outline:none;
 }
 .chip{
     display:inline-flex; align-items:center; gap:8px;
     border:1px solid #dfe6df; padding:8px 12px; border-radius:999px;
     background:var(--green-100);
-    cursor:pointer; user-select:none;
+    cursor:pointer;
 }
 .chip input{ accent-color:var(--green-600); }
 
-/* Form */
+/* form grid felter */
 .grid{
     display:grid; gap:12px;
     grid-template-columns: repeat(4, minmax(0,1fr));
 }
 .grid label{ display:flex; flex-direction:column; gap:6px; font-size:14px; color:var(--ink-700); }
 .grid input, .grid select, .grid textarea{
-    border:1px solid #e6e6e6; border-radius:12px; padding:10px 12px; outline:none;
+    border:1px solid #e6e6e6; border-radius:12px; padding:10px 12px;
 }
 .grid .full{ grid-column:1 / -1; }
 .actions{ display:flex; gap:10px; margin-top:8px; }
+
+/* knapper */
 .btn{
     border:1px solid transparent; border-radius:12px; padding:10px 14px; cursor:pointer;
     font-weight:600;
@@ -95,44 +99,57 @@ h2{ margin:0 0 12px; font-size:20px; }
 .btn.ghost{ background:#fff; border-color:#e6e6e6; color:var(--ink-700); }
 .btn.ghost:hover{ border-color:#d2d2d2; }
 
-/* Liste */
+/* liste layout */
 .list{ list-style:none; margin:0; padding:0; display:grid; gap:10px; }
 .item{
     display:grid; gap:10px; align-items:center;
-    /* NAVN/desc • KATEGORI • ANTAL • KG • PRIS • AFHENTNING • KNAPPER */
+    /* kolonner: navn • kategori • antal • kg • pris • tid • knapper */
     grid-template-columns: 1.4fr .8fr .6fr .6fr .6fr .9fr auto;
     border:1px solid #e6e6e6; border-radius:14px; background:#fff; padding:12px 14px;
 }
 .item h3{ margin:0; font-size:16px; }
 .meta{ color:var(--ink-500); font-size:13px; }
+
 .badge{
-    background:var(--green-100); color:var(--green-700); padding:4px 10px; border-radius:999px;
-    font-weight:600; font-size:12px; justify-self:start;
+    background:var(--green-100); color:var(--green-700);
+    padding:4px 10px; border-radius:999px;
+    font-weight:600; font-size:12px;
 }
-.item .controls{ display:flex; gap:8px; justify-self:end; }
+
+.item .controls{ display:flex; gap:8px; }
 .btn.small{ padding:7px 10px; border-radius:10px; font-size:13px; }
 .btn.warn{ background:#fff; color:#b42318; border:1px solid #ffd3cf; }
 .btn.warn:hover{ background:#fff3f2; }
 
+/* antal resultater i top */
 .list-head{ display:flex; align-items:baseline; gap:10px; }
 #count{ color:var(--ink-500); }
 
-/* Footer */
+/* footer tekst */
 .footer{
     text-align:center; padding:24px; color:var(--ink-500);
 }
 
-/* Responsiv */
+/* tablet tilpasning */
 @media (max-width: 820px){
     .grid{ grid-template-columns: repeat(2, 1fr); }
-    /* komprimer listen lidt på tablets */
     .item{ grid-template-columns: 1.2fr .6fr .6fr .6fr .6fr auto; }
     .item .desc{ display:none; }
 }
+
+/* mobil layout */
 @media (max-width: 520px){
     .filters{ gap:8px; }
     .search{ min-width: 140px; }
-    /* mobil: navn + løse felter + knapper i to kolonner */
     .item{ grid-template-columns: 1fr auto; row-gap:6px; }
     .badge, .qty, .pickup{ justify-self:start; }
+}
+
+/* print venlig version */
+@media print {
+    .filters, .form, .actions, .controls, .footer { display: none !important; }
+    body { background: white !important; }
+    .card { box-shadow: none !important; border: 1px solid #ccc; }
+    body::before { display: none !important; }
+    * { color: #000 !important; }
 }

@@ -2,20 +2,25 @@
 <html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Fødevarer til afhentning</title>
+    <title>Fodevarer til afhentning</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 
+<!-- side hoved med titel -->
 <header class="topbar">
-    <h1>Fødevarer til afhentning</h1>
-    <p class="subtitle">Opret, redigér og fjern overskydende mad</p>
+    <h1>Fodevarer til afhentning</h1>
+    <p class="subtitle">Opret, rediger og fjern overskydende mad</p>
 </header>
 
+<!-- container til alt indhold -->
 <main class="container">
 
-    <!-- Filtre -->
+    <!-- knap som printer siden -->
+    <button class="btn ghost" type="button" onclick="window.print()">Print</button>
+
+    <!-- filter box med check felter -->
     <form method="get" class="card filters">
         <label class="chip">
             <input type="checkbox" name="category" value="vegansk"
@@ -32,38 +37,44 @@
                    th:checked="${activeCategories.contains('andet')}"> <span>Andet</span>
         </label>
 
-        <input class="search" type="search" name="q" placeholder="Søg…" th:value="${q}">
-        <button class="btn primary" type="submit">Filtrér</button>
+        <!-- sok felt til mad -->
+        <input class="search" type="search" name="q" placeholder="Sog…" th:value="${q}">
+        <button class="btn primary" type="submit">Filtrer</button>
     </form>
 
-    <!-- Formular -->
+    <!-- form til at lave eller redigere mad -->
     <section class="card">
-        <h2 th:text="${form.id} != null ? 'Redigér fødevare' : 'Opret fødevare'"></h2>
+        <h2 th:text="${form.id} != null ? 'Rediger fodevare' : 'Opret fodevare'"></h2>
 
         <form action="/save" method="post" class="form">
             <input type="hidden" name="id" th:value="${form.id}">
 
             <div class="grid">
+                <!-- felt til mad navn -->
                 <label>
                     <span>Navn</span>
-                    <input name="name" th:value="${form.name}" required placeholder="Fx 'Rugbrød – 2 stk.'">
+                    <input name="name" th:value="${form.name}" required placeholder="Fx 'Rugbrod - 2 stk.'">
                 </label>
 
+                <!-- felt til antal -->
                 <label>
                     <span>Antal (stk/portioner)</span>
                     <input type="number" name="qty" min="1" step="1" th:value="${form.qty ?: 1}" required>
                 </label>
 
+                <!-- felt til kilo -->
                 <label>
                     <span>Antal kg</span>
                     <input type="number" name="kg" step="0.1" min="0" th:value="${form.kg}">
                 </label>
 
+                <!-- felt til pris -->
                 <label>
                     <span>Pris (kr)</span>
                     <input type="number" name="price" step="0.5" min="0" th:value="${form.price}">
                 </label>
 
+                <!-- felt til kategori -->
                 <label>
                     <span>Kategori</span>
                     <select name="category" th:value="${form.category}">
@@ -73,19 +84,22 @@
                     </select>
                 </label>
 
+                <!-- felt til afhentningstid -->
                 <label>
                     <span>Afhentningstid</span>
                     <input type="datetime-local" name="pickup"
                            th:value="${form.pickup != null ? form.pickup.toString().substring(0,16) : ''}">
                 </label>
 
+                <!-- felt til beskrivelse -->
                 <label class="full">
                     <span>Beskrivelse</span>
-                    <textarea name="desc" rows="2" placeholder="Allergener, bedst før, osv."
+                    <textarea name="desc" rows="2" placeholder="Allergener, bedst for, osv."
                               th:text="${form.desc}"></textarea>
                 </label>
             </div>
 
+            <!-- knapper til at gemme og nulstille form -->
             <div class="actions">
                 <button class="btn primary" type="submit">Gem</button>
                 <a href="/" class="btn ghost">Nulstil</a>
@@ -93,42 +107,35 @@
         </form>
     </section>
 
-    <!-- Liste -->
+    <!-- liste som viser mad -->
     <section class="card">
         <div class="list-head">
-            <h2>Tilgængelige fødevarer</h2>
+            <h2>Tilgaengelige fodevarer</h2>
             <small id="count" th:text="${count + ' element' + (count == 1 ? '' : 'er')}"></small>
         </div>
 
+        <!-- hver linje er en mad vare -->
         <ul class="list">
             <li class="item" th:each="f : ${items}">
-                <!-- Navn + beskrivelse (beskrivelse nederst) -->
+                <!-- navn + beskrivelse -->
                 <div>
                     <h3 th:text="${f.name}">Navn</h3>
                     <div class="meta desc" th:text="${f.desc}">Beskrivelse</div>
                 </div>
 
-                <!-- Kategori -->
                 <div class="badge" th:text="${f.category}">kategori</div>
-
-                <!-- Antal -->
                 <div class="qty">Antal: <strong th:text="${f.qty}">1</strong></div>
-
-                <!-- Kg -->
                 <div class="qty">Kg: <strong th:text="${f.kg}">0</strong></div>
-
-                <!-- Pris -->
                 <div class="qty">Pris: <strong th:text="${f.price}">0</strong> kr</div>
 
-                <!-- Afhentning -->
+                <!-- tid for afhentning -->
                 <div class="pickup"
                      th:text="${f.pickup != null ? #temporals.format(f.pickup,'dd/MM HH:mm') : 'Ingen tid'}">
-                    01/01 12:00
                 </div>
 
-                <!-- Knapper -->
+                <!-- knapper til at redigere eller slette mad -->
                 <div class="controls">
-                    <a class="btn small" th:href="@{'/edit/' + ${f.id}}">Redigér</a>
+                    <a class="btn small" th:href="@{'/edit/' + ${f.id}}">Rediger</a>
                     <form th:action="@{'/delete/' + ${f.id}}" method="post"
                           onsubmit="return confirm('Slet dette?')">
                         <button class="btn small warn" type="submit">Slet</button>
@@ -140,8 +147,9 @@
 
 </main>
 
+<!-- footer med lille tekst -->
 <footer class="footer">
-    <small>Grønt tema • Thymeleaf • ingen JS</small>
+    <small> Stot lokalt • Forebyg spilde • Mindsk okonomi tab</small>
 </footer>
 
 </body>
