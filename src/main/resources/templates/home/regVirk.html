@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <title>Registrer Virksomhed</title>
     <link rel="icon" type="image/x-icon" href="/img/org-logo.png">
-
-<!--    <link rel="stylesheet" href="/homestyle.css">-->
     <link rel="stylesheet" href="/homestyle.css">
     <link rel="stylesheet" href="/css/topmenu.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -115,12 +113,9 @@
         }
 
         .site-header {
-            background: rgba(1,105,70,1);
-            padding: 0.5rem 1rem;
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            position: relative;
         }
         .nav {
             display: flex;
@@ -143,7 +138,7 @@
         }
 
         .side-image {
-            position: fixed;
+            position: absolute;
             top: 0;
             right: 0;
             width: 45%;
@@ -159,28 +154,16 @@
             object-position: center;
         }
 
-        .side-image::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 150px;
-            height: 100%;
 
-        }
 
         @media (max-width: 900px) {
 
-
             .side-image {
                 position: relative;
-                width: 100%;
-                height: 250px;
+                width: 80%;
+                height: 20%;
             }
 
-            .side-image::before {
-                display: none;
-            }
 
             .flex-center {
                 margin-left: 0;
@@ -213,32 +196,32 @@
 <form id="regForm" action="">
     <div class="flex-center">
         <div class="container">
-            <h1>Register:</h1>
+            <h1>Registrer Virksomhed</h1>
 
             <div class="tab">Name:
-                <p><input placeholder="First name..."></p>
-                <p><input placeholder="Last name..."></p>
+                <p><input placeholder="Fornavn..."></p>
+                <p><input placeholder="Efternavn..."></p>
             </div>
 
             <div class="tab">Contact Info:
                 <p><input placeholder="E-mail..."></p>
-                <p><input placeholder="Phone Number..."></p>
+                <p><input placeholder="Telefonnummer..."></p>
             </div>
 
             <div class="tab">Company Information:
-                <p><input placeholder="Company Name..."></p>
-                <p><input placeholder="Company Address..."></p>
-                <p><input placeholder="Company Type..."></p>
+                <p><input placeholder="Firma Navn..."></p>
+                <p><input placeholder="Firma Adresse..."></p>
+                <p><input placeholder="Firma Type..."></p>
             </div>
 
             <div class="tab">Login Info:
-                <p><input placeholder="Username..."></p>
-                <p><input type="password" placeholder="Password..."></p>
-                <p><input type="password" placeholder="Repeat Password..."></p>
+                <p><input placeholder="Brugernavn..."></p>
+                <p><input type="password" placeholder="Kodeord..."></p>
+                <p><input type="password" placeholder="Gentag Kodeord..."></p>
             </div>
 
             <div style="display: flex; justify-content: flex-end; margin-top: 1rem;">
-                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Forrige</button>
                 <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
             </div>
 
@@ -252,7 +235,7 @@
     </div>
 
     <div class="side-image">
-        <img src="/pexels-snapwire-730897_journey_grass.jpg" alt="">
+        <img src="/supermarketworking.jpg" alt="">
     </div>
 </form>
 
@@ -269,7 +252,7 @@
         var x = document.getElementsByClassName("tab");
         x[n].style.display = "block";
         document.getElementById("prevBtn").style.display = n == 0 ? "none" : "inline";
-        document.getElementById("nextBtn").innerHTML = n == (x.length - 1) ? "Submit" : "Next";
+        document.getElementById("nextBtn").innerHTML = n == (x.length - 1) ? "Registrer" : "Næste";
         fixStepIndicator(n);
     }
 
