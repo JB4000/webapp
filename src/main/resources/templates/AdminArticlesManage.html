@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Organisation – Artikler</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+
+<!-- Grøn topbar (lille logo venstre) -->
+<nav class="topbar-green">
+    <div class="topbar-inner">
+        <a class="brand" href="/" aria-label="Til forside">
+            <img src="/img/org-logo.png" alt="Organisation">
+        </a>
+        <img class="tenant-logo" src="/img/company-logo.png" alt="Virksomhed">
+    </div>
+</nav>
+
+<header class="page-head">
+    <h1>Organisation</h1>
+    <p>Opret, rediger og fjern artikler til platformens brugere</p>
+</header>
+
+<main class="container">
+
+    <!-- Filtre -->
+    <section class="card">
+        <form method="get" class="filters">
+            <label class="chip">
+                <input type="checkbox" name="category" value="nyhed"
+                       th:checked="${activeCategories.contains('nyhed')}" /> Nyheder
+            </label>
+            <label class="chip">
+                <input type="checkbox" name="category" value="guide"
+                       th:checked="${activeCategories.contains('guide')}" /> Guides
+            </label>
+            <label class="chip">
+                <input type="checkbox" name="category" value="drift"
+                       th:checked="${activeCategories.contains('drift')}" /> Drift
+            </label>
+            <label class="chip">
+                <input type="checkbox" name="showDrafts" value="true"
+                       th:checked="${showDrafts}" /> Vis kladder
+            </label>
+
+            <input class="search" type="search" name="q" placeholder="Søg titel/indhold" th:value="${q}" />
+            <button class="btn ghost" type="submit">Opdater</button>
+            <button class="btn ghost" type="button" onclick="window.print()">Print</button>
+        </form>
+    </section>
+
+    <!-- Formular -->
+    <section class="card form">
+        <h2 th:text="${form.id} != null ? 'Rediger artikel' : 'Ny artikel'"></h2>
+
+        <form method="post" th:action="@{/admin/articles/save}" th:object="${form}">
+            <input type="hidden" th:field="*{id}" />
+
+            <div class="grid">
+                <label class="full">Titel
+                    <input type="text" th:field="*{title}" placeholder="Titel" required />
+                </label>
+
+                <label>Kategori
+                    <select th:field="*{category}">
+                        <option value="nyhed">Nyhed</option>
+                        <option value="guide">Guide</option>
+                        <option value="drift">Drift</option>
+                    </select>
+                </label>
+
+                <label>Publiceret
+                    <input type="datetime-local" name="publishedAt"
+                           th:value="${form.publishedAt != null} ?
+                   ${#temporals.format(form.publishedAt,'yyyy-MM-dd\'T\'HH:mm')}" />
+                </label>
+
+                <label>Kladdestatus
+                    <input type="checkbox" th:field="*{draft}" />
+                </label>
+
+                <label class="full">Resume
+                    <input type="text" th:field="*{summary}" placeholder="Kort beskrivelse" />
+                </label>
+
+                <label class="full">Indhold
+                    <textarea rows="6" th:field="*{body}" placeholder="Skriv artikel..."></textarea>
+                </label>
+            </div>
+
+            <div class="actions">
+                <button class="btn primary" type="submit">Gem</button>
+                <a th:if="${form.id}" th:href="@{'/admin/articles'}" class="btn ghost">Annuller</a>
+            </div>
+        </form>
+    </section>
+
+    <!-- Artikelliste -->
+    <section class="card articles-list" id="articlesList">
+        <div class="list-head">
+            <h2>Artikler</h2>
+            <span th:text="${count} + ' resultater'"></span>
+        </div>
+
+        <ul class="list">
+            <li class="item" th:each="a : ${items}">
+                <h3 th:text="${a.title}">Titel</h3>
+                <span class="badge" th:text="${a.category}">kategori</span>
+                <span class="meta"
+                      th:text="${a.publishedAt} != null ?
+                       ${#temporals.format(a.publishedAt,'dd.MM.yyyy HH:mm')} : '—'">—</span>
+                <span class="meta" th:text="${a.draft} ? 'Kladde' : 'Publiceret'">status</span>
+
+                <div class="controls">
+                    <a class="btn small ghost" th:href="@{'/admin/articles/edit/' + ${a.id}}">Rediger</a>
+                    <form method="post" th:action="@{'/admin/articles/delete/' + ${a.id}}" style="display:inline">
+                        <button class="btn small warn" type="submit">Slet</button>
+                    </form>
+                </div>
+
+                <div class="desc" th:text="${a.summary}">Kort resume</div>
+            </li>
+        </ul>
+    </section>
+
+</main>
+
+<footer class="footer">Organisation · Admin</footer>
+
+<!-- Sticky notes overlay (på siderne – påvirker ikke layout) -->
+<div id="note-layer" aria-hidden="true">
+    <!-- venstre -->
+    <div class="note left"  style="top:120px;"><div class="note-text"></div></div>
+    <div class="note left"  style="top:320px;"><div class="note-text"></div></div>
+    <div class="note left"  style="top:540px;"><div class="note-text"></div></div>
+    <!-- højre -->
+    <div class="note right" style="top:160px;"><div class="note-text"></div></div>
+    <div class="note right" style="top:420px;"><div class="note-text"></div></div>
+</div>
+
+<!-- Citater ind i notes (random ved hver load) -->
+<script>
+    (function(){
+        const QUOTES = [
+            "Små handlinger skaber store resultater.",
+            "Gør det let at gøre det rigtige.",
+            "Vi lærer ved at dele.",
+            "Viden er noget vi deler.",
+            "Mission før ego.",
+            "Sammen løfter vi mere.",
+            "Del for at gøre en forskel.",
+            "Handling > intention."
+        ];
+        const notes = document.querySelectorAll('#note-layer .note-text');
+        notes.forEach(n => {
+            const q = QUOTES[Math.floor(Math.random()*QUOTES.length)];
+            n.textContent = q;
+        });
+    })();
+</script>
+
+</body>
+</html>

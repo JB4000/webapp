@@ -1,0 +1,159 @@
+/* ===== Tema grundfarver ===== */
+:root{
+    --primary-600:#16508c;
+    --primary-700:#123764;
+    --primary-300:#4f8fd7;
+
+    --green-700:#2e7d32;
+
+    --text-900:#0f172a;
+    --text-700:#334155;
+    --text-500:#64748b;
+
+    --bg-card:#ffffff;
+    --round:18px;
+    --shadow:0 6px 20px rgba(0,0,0,.05);
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; margin:0; padding:0; }
+body{
+    font:16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background:#fff;
+    color:var(--text-900);
+}
+
+/* ===== Grøn topbar ===== */
+.topbar-green{
+    position: sticky; top:0; z-index:1000;
+    background:var(--green-700);
+    border-bottom:1px solid rgba(0,0,0,.06);
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+.topbar-inner{
+    width:min(1200px, 96%);
+    margin:0 auto; height:52px;
+    display:flex; align-items:center; gap:10px; justify-content:flex-start;
+}
+.topbar-green .brand img{ height:18px; display:block; object-fit:contain; }
+.topbar-green .tenant-logo{ height:18px; display:block; object-fit:contain; opacity:.9; }
+
+/* ===== Header ===== */
+.page-head{ text-align:center; padding:22px 12px 16px; }
+.page-head h1{ margin:0 0 6px; font-size:clamp(22px,3.2vw,36px); }
+.page-head p{ margin:0; color:var(--text-500); }
+
+/* ===== Layout container ===== */
+.container{
+    width:min(1000px,92%);
+    margin:0 auto 80px;
+    display:grid; gap:18px;
+}
+
+/* ===== Cards ===== */
+.card{
+    background:var(--bg-card);
+    padding:20px;
+    border-radius:var(--round);
+    border:1px solid #e6e6e6;
+    box-shadow:var(--shadow);
+}
+h2{ margin:0 0 14px; font-size:20px; }
+
+/* ===== Filters ===== */
+.filters{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+.chip{
+    display:flex; align-items:center; gap:8px;
+    border:1px solid #d7e3fb;
+    padding:8px 12px; border-radius:999px;
+    background:#eaf2ff; color:var(--primary-700);
+    cursor:pointer;
+}
+.chip input{ accent-color:var(--primary-600); }
+.search{
+    margin-left:auto; min-width:220px;
+    border:1px solid #d0d7e6; border-radius:12px; padding:10px 12px;
+}
+
+/* ===== Form ===== */
+.grid{
+    display:grid; gap:14px;
+    grid-template-columns: repeat(4,minmax(0,1fr));
+}
+.grid label{ display:flex; flex-direction:column; gap:6px; font-size:14px; }
+.grid input, .grid select, .grid textarea{
+    border:1px solid #cfd6e4; border-radius:12px; padding:10px 12px; background:#fff;
+}
+.grid .full{ grid-column:1/-1; }
+.actions{ display:flex; gap:10px; margin-top:8px; }
+
+/* ===== Buttons ===== */
+.btn{ border-radius:12px; padding:10px 14px; font-weight:600; cursor:pointer; }
+.btn.primary{ background:var(--primary-600); color:#fff; border:0; }
+.btn.primary:hover{ background:var(--primary-700); }
+.btn.ghost{ background:#fff; border:1px solid #d0d7e6; color:var(--text-700); }
+.btn.ghost:hover{ border-color:var(--primary-300); color:var(--primary-700); }
+.btn.small{ padding:7px 10px; font-size:13px; }
+.btn.warn{ background:#fff; border:1px solid #ffd3cf; color:#b42318; }
+.btn.warn:hover{ background:#fff3f2; }
+
+/* ===== Liste ===== */
+.list{ list-style:none; padding:0; margin:0; display:grid; gap:10px; }
+.item{
+    display:grid;
+    grid-template-columns:1.4fr .8fr .8fr .7fr auto;
+    gap:10px;
+    padding:12px 14px;
+    border:1px solid #e5e7eb;
+    border-radius:14px;
+    background:#fff;
+}
+.item h3{ margin:0; font-size:16px; }
+.badge{ background:#e8f1ff; color:var(--primary-700); padding:4px 10px; border-radius:999px; font-size:12px; font-weight:600; }
+.meta{ font-size:13px; color:var(--text-500); }
+.controls{ display:flex; gap:6px; }
+
+/* ===== Footer ===== */
+.footer{ text-align:center; padding:30px 0; color:var(--text-500); }
+
+/* ===== Sticky notes overlay – påvirker ikke layout ===== */
+:root{ --note-size: 88px; }  /* justér størrelse her */
+
+#note-layer{
+    position:fixed; inset:0;
+    pointer-events:none; /* ingen klik blokering */
+    z-index:900;         /* under topbar(1000) */
+}
+
+/* En note: kvadratisk med sticky.png som baggrund */
+#note-layer .note{
+    position:fixed; /* top/left sættes inline i HTML */
+    width:var(--note-size);
+    height:var(--note-size);
+    background: url('/img/sticky.png') center/contain no-repeat;
+    filter: drop-shadow(0 6px 14px rgba(0,0,0,.15));
+}
+#note-layer .note.left  { left: 12px; transform: rotate(-2deg); }
+#note-layer .note.right { right: 12px; transform: rotate( 1.5deg); }
+
+/* Citat-tekst inde i lappen */
+#note-layer .note-text{
+    position:absolute;
+    inset: 18% 12% 18% 12%;
+    display:flex; align-items:center; justify-content:center;
+    text-align:center;
+    font-size:10px; line-height:1.2; font-weight:600;
+    color:#333;
+    transform: rotate(-1deg);
+}
+
+/* Skjul noter på small screens */
+@media (max-width:980px){
+    #note-layer{ display:none; }
+}
+
+/* Print */
+@media print{
+    #note-layer, .topbar-green, .controls{ display:none !important; }
+    .card{ box-shadow:none; border:1px solid #ccc; }
+}
