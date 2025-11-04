@@ -82,8 +82,7 @@ body::before {
     position: fixed;
     inset: 0;
     background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-    url('pexels-mikhail-nilov-8543136_hands_holding_plant.jpg?auto=compress&cs=tinysrgb&dpr=2&h=1080&w=1920');
-    /*background-position: center center;*/
+    url('pexels-mikhail-nilov-8543136_hands_holding_plant.jpg');
     background-position: center 2%;
     background-repeat: no-repeat;
     background-size: cover;
@@ -100,12 +99,12 @@ body::before {
     from {
         filter: blur(0);
         background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-        url('pexels-mikhail-nilov-8543136_hands_holding_plant.jpg?auto=compress&cs=tinysrgb&dpr=2&h=1080&w=1920');
+        url('pexels-mikhail-nilov-8543136_hands_holding_plant.jpg');
     }
     to {
         filter: blur(5px);
         background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
-        url('pexels-mikhail-nilov-8543136_hands_holding_plant.jpg?auto=compress&cs=tinysrgb&dpr=2&h=1080&w=1920');
+        url('pexels-mikhail-nilov-8543136_hands_holding_plant.jpg');
     }
 }
 
