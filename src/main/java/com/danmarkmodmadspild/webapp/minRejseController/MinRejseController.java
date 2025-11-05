@@ -11,7 +11,7 @@ public class MinRejseController {
 
 
     @GetMapping("/minRejse")
-    public String minRejse(Model model){
+    public String minRejse(){
         return "home/minRejse";
     }
 

@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="da">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Danmark Mod Madspild</title>
+    <link rel="icon" type="image/x-icon" href="/img/org-logo.png">
+
+    <!-- Link til Google Font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Link til CSS fil i static directory -->
+    <link rel="stylesheet" href="/homestyle.css">
+    <link rel="stylesheet" href="/css/topmenu.css">
+
+
+</head>
+
+<body>
+
+
+<!-- top menu navigation bar -->
+<header class="site-header">
+    <nav class="nav" aria-label="Primary">
+
+        <!-- Logo helt til venstre i top menu, der fungerer som link -->
+        <a href="/" class="nav-logo">
+            <img src="/img/org-logo.png" alt="Logo">
+        </a>
+
+        <!-- unordered list / bullet list (som bliver horisontal) starter -->
+        <ul class="nav-list" role="menubar" aria-label="Main">
+
+            <!-- Link: Hvad er problemet -->
+            <li class="nav-item" role="none">
+                <a class="nav-link" role="menuitem" aria-haspopup="true" aria-expanded="false" href="#sektion1">Hvad er
+                    problemet</a>
+            </li>
+
+            <!-- Link: Hvad gør Danmark mod madspild ved det -->
+            <li class="nav-item nav-item--bridge" role="none">
+                <a class="nav-link" role="menuitem" aria-expanded="false" href="#sektion2">Hvad gør
+                    Danmark
+                    mod madspild ved det</a>
+            </li>
+
+            <!-- Drop-down: Registrer. Her er background anderledes for at fremhæve
+            og derfor skal også hover tekst være anderledes for at den bliver synlig
+            det er ordnet med inline style -->
+            <li class="nav-item nav-item--bridge" role="none">
+                <a class="nav-link" style="background-color: var(--hover-accent)"
+                   role="menuitem" aria-expanded="false" href="/">Registrer ▾</a>
+
+                <div class="flyout" role="dialog" aria-label="Registrer">
+
+
+                        <!-- unordered list / bullet list i drop down -->
+                        <ul class="list" role="list">
+                            <li><a href="/minRejse">Registrer Privat</a></li>
+                            <li><a href="/regVirk">Registrer Virksomhed</a></li>
+                        </ul>
+                    </div>
+
+            </li>
+
+            <!-- Drop-down: Log ind -->
+            <li class="nav-item" role="none">
+                <a class="nav-link" role="menuitem" aria-haspopup="true" aria-expanded="false" href="/">Log ind ▾</a>
+                <div class="flyout" role="dialog" aria-label="Log ind">
+
+
+                        <!-- unordered list / bullet list i drop down -->
+                        <ul class="list" role="list">
+                            <li><a href="/minRejse">Privat</a></li>
+                            <li><a href="/BusinessFoodManage+">Virksomhed</a></li>
+                            <li><a href="/">Admin</a></li>
+                        </ul>
+
+                </div>
+            </li>
+
+        </ul>
+    </nav>
+</header>
+
+<!-- Slogan tekst -->
+<div class="hero-content">
+    <div class="hero-text">
+        <h1>Danmark mod madspild</h1>
+        <p>Hjælp maden med at nå hele vejen frem til en tallerken</p>
+    </div>
+</div>
+
+
+<!-- sections under main front page -->
+<main>
+
+    <!-- Section om madspild -->
+    <section id="sektion1" class="info-section">
+        <div class="info-inner">
+            <div class="info-text-box">
+                <div th:utext="${SectionText.getProblemText}">Information om madspild</div>
+                <a class="info-button" href="#sektion2">Hvad gør Danmark mod madspild ved det</a>
+            </div>
+
+            <div class="info-images">
+                <div class="info-img img-problem-1" role="img"
+                     aria-label="Fordærvede spilde fødevarer"></div>
+                <div class="info-img img-problem-2"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Hvad gør Danmark mod madspild ved det -->
+    <section id="sektion2" class="info-section">
+        <div class="info-inner">
+
+            <div class="info-text-box">
+                <div th:utext="${SectionText.solutionText}">
+                    Information om community til forebyggelse af madspild</div>
+                <a class="info-button" href="/">Registrer</a>
+            </div>
+            <div class="info-images">
+                <div class="info-img img-solution-1" role="img"
+                     aria-label="Lokalt mødested hvor folk sammen får brugt fødevarer i tide"></div>
+                <div class="info-img img-solution-2"></div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+
+<script>
+    /* ALT+A fører direkte til Manage artikler for org user */
+    document.addEventListener("keydown", function(event) {
+            if (event.altKey && event.key.toLowerCase() === "a") {
+                event.preventDefault();
+                window.location.href = "/";
+            }
+        }
+    );
+</script>
+
+
+
+</body>

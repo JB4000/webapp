@@ -1,0 +1,252 @@
+
+:root {
+    --panel: rgba(255, 255, 255, .08);
+    --panel-strong: rgba(255, 255, 255, .12);
+    --text: #ffffff;
+    --muted: #cce3d7;
+    --accent: #016946;
+    /*--hover-accent: #785947;*/
+    /*--accent-variant: #4d6e63;*/
+    --accent-variant: #25fdb7;
+
+    --hover-accent: #00426e;
+
+    /*--hover-text: #014f34;*/
+    --hover-text: #ffffff;
+
+    --ring: transparent;
+    --border: rgba(255, 255, 255, .15);
+    --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+    --radius: 14px;
+    --radius-lg: 18px;
+    --gap: clamp(.75rem, 1.2vw, 1rem);
+    --flyout-w: min(1100px, 92vw);
+    --hover-bridge: 18px;
+
+    /* Her angives højden af top menu som målt i Developer Tools
+   Bla for at få præcis overgang fra front page til sektion 1 til sektion 2 */
+    --header-h: 42px;
+
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+}
+
+
+/* header til overliggende top menu navigation bar */
+.site-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    background: var(--accent);
+    /*transition: background 0.3s ease;*/
+    padding: 0.35rem 1.5rem;
+}
+
+/* navigation bar */
+.nav {
+    max-width: 100%;
+    /*margin: 0 auto;*/
+    padding: .1rem clamp(.75rem, 2.5vw, 1.25rem);
+    display: flex;
+    /*align-items: flex-start;*/
+    align-items: center;
+    gap: var(--gap);
+    /*justify-content: flex-end;*/
+
+}
+
+/* unordered / bullet list i navigation bar (som bliver horisontal) */
+.nav-list {
+    list-style: none;
+    display: flex;
+    /*flex: 1;*/
+    justify-content: flex-end;
+    align-items: center;
+    gap: .4rem;
+    /*justify-content: flex-end;*/
+    flex-wrap: wrap;
+}
+
+/* punkterne/teksterne på listen */
+.nav-item {
+    position: relative;
+}
+
+
+/* punkterne/teksterne på listen */
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    text-decoration: none;
+    color: inherit;
+    font-weight: 600;
+    padding: .3rem .8rem;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: background .2s ease, border .2s ease, color .2s ease
+}
+
+
+
+
+/* værdier for når mus pege på link i navigation bar
+   eller på felt hvor link er i
+   eller på selve udfoldede fly-out til et link
+   med reference til værdierne i toppen af css file
+ */
+.nav-link:hover,
+.nav-item:hover > .nav-link,
+.nav-item:has(.flyout :focus) > .nav-link {
+    background: var(--hover-accent);
+    color: var(--hover-text);
+}
+
+/* Logo ikon helt ude til venstre i top menu */
+.nav-logo {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.nav-logo img {
+    /* juster evt højde på logo og dermed top menu her
+    men ret så også gerne --header-h: 42px; i roots */
+    height: 42px;
+    width: auto;
+    background-color: var(--accent);
+    border-radius: 12px;
+    padding: 0;
+}
+
+/* Logo bevæger sig når hover */
+.nav-logo:hover img {
+    transform: scale(1.1) rotate(-3deg);
+}
+
+
+/* Til fly-out felt til Om Danmark mod madspild */
+.flyout {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) translateY(12px);
+    opacity: 0;
+    pointer-events: none;
+    background: rgba(1, 105, 70, 0.90);
+    backdrop-filter: blur(5px);
+
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+    top: calc(100% + 2px);
+    border-radius: 12px;
+    width: 150px;
+    /*max-width: 90vw;*/
+    max-width: min(92vw, 680px);
+    z-index: 1000;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+
+
+/* fold fly-out ud når mus pege på link
+   og hold det folder ud når bagefter flytte mus fra link til fly-out
+   transform til at få flyout foldet ud og så lige hoppe en tand opad på plads */
+.nav-item:hover > .flyout,
+.nav-item:has(.flyout :focus) > .flyout {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+}
+
+
+.nav-item:hover .flyout,
+.nav-item:focus-within .flyout {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition-delay: 0s;
+}
+
+/* Dropdown/fly-out fader ud i stedet for bare at forsvingde */
+.nav-item:not(:hover) .flyout {
+    transition-delay: 0.15s;
+}
+
+/* En del af bridge løsning til at gøre dropout/flyout nemmere at aktivere/fange */
+.flyout::before {
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: 0;
+    right: 0;
+    height: 12px;
+}
+
+/* En del af bridge løsning til at gøre dropout/flyout nemmere at aktivere/fange */
+.nav-item--bridge {
+    position: relative;
+}
+
+/* En del af bridge løsning til at gøre dropout/flyout nemmere at aktivere/fange */
+.nav-item--bridge .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -14px;
+    height: 14px;
+    background: transparent;
+    pointer-events: auto;
+}
+
+/* En del af bridge løsning til at gøre dropout/flyout nemmere at aktivere/fange */
+.nav-item--bridge .flyout::before {
+    content: "";
+    position: absolute;
+    top: -14px;
+    left: 0;
+    right: 0;
+    height: 14px;
+    background: transparent;
+}
+
+
+
+
+/* Til drop-down Log ind i navigation bar */
+.list {
+    list-style: none;
+    margin: 0;
+    padding: 8px;
+    font-size: 16px;
+    font-family: "Plus Jakarta Sans", Arial, serif;
+    line-height: 0.9;
+    text-align: justify;
+}
+
+/* Til drop-down Log ind i navigation bar */
+.list a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    /*transition: background .2s ease, border .2s ease, color .2s ease;*/
+
+}
+
+/* Til drop-down Log ind i navigation bar, hover */
+.list a:hover {
+    background: var(--hover-accent);
+    color: var(--hover-text);
+}

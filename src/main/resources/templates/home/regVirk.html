@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrer Virksomhed</title>
+    <link rel="icon" type="image/x-icon" href="/img/org-logo.png">
+    <link rel="stylesheet" href="/homestyle.css">
+    <link rel="stylesheet" href="/css/topmenu.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+
+        .flex-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            padding: 2rem;
+            width: 100%;
+            z-index: 1;
+        }
+
+        .container {
+            background-color: rgba(1,105,70,1);
+            border-radius: 8px;
+            padding: 2rem;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+
+        .container h1 {
+            text-align: center;
+            z-index: 1;
+        }
+
+        input {
+            padding: 10px;
+            width: 100%;
+            font-size: 17px;
+            border: 1px solid rgb(255, 255, 255);
+            box-sizing: border-box;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 900px) {
+
+
+            .flex-center {
+                margin-left: 0;
+                flex-direction: column;
+                align-items: center;
+            }
+
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+            url('/pexels-mikhail-nilov-8543136_hands_holding_plant.jpg');
+            filter: blur(5px);
+            z-index: 0;
+        }
+        @keyframes blurAndDarken {
+            from {
+                filter: blur(5px);
+                z-index: 0;
+            }
+            to {
+                filter: blur(5px);
+                z-index: 0;
+            }
+        }
+
+        .button {
+            margin-top: 10px;
+            background-color: #00426e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin-left: auto;
+
+        }
+        .button:hover {
+            background-color: #12598e;
+
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <nav class="nav" aria-label="Primary">
+        <!-- Logo helt til venstre i top menu, der fungerer som link -->
+        <a href="/" class="nav-logo">
+            <img src="/img/org-logo.png" alt="Logo">
+        </a>
+    </nav>
+</header>
+
+<form id="regForm" th:action="@{/BusinessFoodManage}" METHOD="get">
+    <div class="flex-center">
+        <div class="container">
+
+            <h1>Registrer Virksomhed</h1>
+            <label for="FirmaNavn">Firma Navn:</label>
+            <input class="input" placeholder="Skriv Firma Navn..." type="text" id="FirmaNavn"
+                   pattern="[A-ZÆØÅa-zæøå]{1,}"
+                   title="One or more characters"
+                   required>
+
+            <label for="mail">Email:</label>
+            <input placeholder="Skriv Email..." type="text" id="mail"
+                   pattern="[A-ZÆØÅa-zæøå0-9._%+\-]+@[A-ZÆØÅa-zæøå0-9.\-]+\.[A-Za-z]{2,}"
+                   title="please include a proper email of the following format: mail@provider.xx"
+                   required>
+
+            <label for="tlf">Telefonnummer:</label>
+            <input placeholder="Skriv Telefonummer..." type="text" id="tlf"
+                   pattern="[0-9]{8,8}"
+                   title="please enter a valid phone number of the following format: 12345678"
+                   required>
+
+            <label for="pwd">Adgangskode:</label>
+            <input placeholder="Skriv Adgangskode..." type="password" id="pwd"
+                   pattern=".{8,}"
+                   title="Eight or more characters"
+                   required>
+
+                    <button class="button" type="submit">Registrer</button>
+
+        </div>
+    </div>
+</form>
+</body>
+</html>

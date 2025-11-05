@@ -1,0 +1,592 @@
+
+
+
+:root {
+/*    --panel: rgba(255, 255, 255, .08);*/
+/*    --panel-strong: rgba(255, 255, 255, .12);*/
+/*    --text: #ffffff;*/
+/*    --muted: #cce3d7;*/
+/*    --accent: #016946;*/
+/*    !*--hover-accent: #785947;*!*/
+/*    !*--accent-variant: #4d6e63;*!*/
+/*    --accent-variant: #25fdb7;*/
+
+/*    --hover-accent: #00426e;*/
+
+/*    !*--hover-text: #014f34;*!*/
+/*    --hover-text: #ffffff;*/
+
+/*    --ring: transparent;*/
+/*    --border: rgba(255, 255, 255, .15);*/
+/*    --shadow: 0 10px 30px rgba(0, 0, 0, .35);*/
+/*    --radius: 14px;*/
+/*    --radius-lg: 18px;*/
+/*    --gap: clamp(.75rem, 1.2vw, 1rem);*/
+/*    --flyout-w: min(1100px, 92vw);*/
+/*    --hover-bridge: 18px;*/
+
+/*    !* Her angives højden af top menu som målt i Developer Tools*/
+/*   For at få præcis overgang fra front til sektion 1 til sektion 2 *!*/
+/*    --header-h: 42px;*/
+
+    --info-card-bg: var(--accent-variant);
+    --info-button-bg: #016946;
+    --info-text: #0b3a2b;
+
+}
+
+
+/* inkluder padding og border i calculation af elements højde og bredde */
+/** {*/
+/*    box-sizing: border-box;*/
+/*    margin: 0;*/
+/*    padding: 0*/
+/*}*/
+
+/* Når indhold i et element overskrider grænserne så vis ikke det overskredne */
+/* Smooth scroll effect når bruge links til hoppe til sektion 1 og sektion 2 */
+
+html,
+body {
+    height: 100%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+
+/* outline til keyboard navigation af top menu */
+a:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* bla Font for body */
+body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #ffffff;
+    min-height: 100vh;
+    position: relative;
+    /*overflow: hidden;*/
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+
+
+
+/* blur baggrunds image men uden at blur text som ligger oven på */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url('pexels-mikhail-nilov-8543136_hands_holding_plant.jpg');
+    background-position: center 2%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transform: scale(1.05);
+    z-index: -1;
+    filter: blur(0);
+    animation: blurAndDarken 1s ease forwards;
+    animation-delay: 2s;
+}
+
+/* fra og til værdier for blur animation refereret i body::before
+   Dvs blur af baggrundsimage */
+@keyframes blurAndDarken {
+    from {
+        filter: blur(0);
+        background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+        url('pexels-mikhail-nilov-8543136_hands_holding_plant.jpg');
+    }
+    to {
+        filter: blur(5px);
+        background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+        url('pexels-mikhail-nilov-8543136_hands_holding_plant.jpg');
+    }
+}
+
+
+
+/*!* header til overliggende top menu navigation bar *!*/
+/*.site-header {*/
+/*    position: sticky;*/
+/*    top: 0;*/
+/*    width: 100%;*/
+/*    z-index: 999;*/
+/*    background: var(--accent);*/
+/*    !*transition: background 0.3s ease;*!*/
+/*    padding: 0.35rem 1.5rem;*/
+/*}*/
+
+/*!* navigation bar *!*/
+/*.nav {*/
+/*    max-width: 100%;*/
+/*    !*margin: 0 auto;*!*/
+/*    padding: .1rem clamp(.75rem, 2.5vw, 1.25rem);*/
+/*    display: flex;*/
+/*    !*align-items: flex-start;*!*/
+/*    align-items: center;*/
+/*    gap: var(--gap);*/
+/*    !*justify-content: flex-end;*!*/
+
+/*}*/
+
+/*!* unordered / bullet list i navigation bar (som bliver horisontal) *!*/
+/*.nav-list {*/
+/*    list-style: none;*/
+/*    display: flex;*/
+/*    !*flex: 1;*!*/
+/*    justify-content: flex-end;*/
+/*    align-items: center;*/
+/*    gap: .4rem;*/
+/*    !*justify-content: flex-end;*!*/
+/*    flex-wrap: wrap;*/
+/*}*/
+
+/*!* punkterne/teksterne på listen *!*/
+/*.nav-item {*/
+/*    position: relative;*/
+/*}*/
+
+
+/*!* punkterne/teksterne på listen *!*/
+/*.nav-link {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    gap: .4rem;*/
+/*    text-decoration: none;*/
+/*    color: inherit;*/
+/*    font-weight: 600;*/
+/*    padding: .3rem .8rem;*/
+/*    border-radius: 10px;*/
+/*    border: 1px solid transparent;*/
+/*    transition: background .2s ease, border .2s ease, color .2s ease*/
+/*}*/
+
+
+
+
+/*!* værdier for når mus pege på link i navigation bar*/
+/*   eller på felt hvor link er i*/
+/*   eller på selve udfoldede fly-out til et link*/
+/*   med reference til værdierne i toppen af css file*/
+/* *!*/
+/*.nav-link:hover,*/
+/*.nav-item:hover > .nav-link,*/
+/*.nav-item:has(.flyout :focus) > .nav-link {*/
+/*    background: var(--hover-accent);*/
+/*    color: var(--hover-text);*/
+/*}*/
+
+/*!* Logo ikon helt ude til venstre i top menu *!*/
+/*.nav-logo {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    margin-right: auto;*/
+/*    cursor: pointer;*/
+/*    transition: transform 0.3s ease;*/
+/*}*/
+
+/*.nav-logo img {*/
+/*    !* juster evt højde på logo og dermed top menu her*/
+/*    men ret så også gerne --header-h: 42px; i roots *!*/
+/*    height: 42px;*/
+/*    width: auto;*/
+/*    background-color: var(--accent);*/
+/*    border-radius: 12px;*/
+/*    padding: 0;*/
+/*}*/
+
+/*!* Logo bevæger sig når hover *!*/
+/*.nav-logo:hover img {*/
+/*    transform: scale(1.1) rotate(-3deg);*/
+/*}*/
+
+
+/*!* Til fly-out felt til Om Danmark mod madspild *!*/
+/*.flyout {*/
+/*    position: absolute;*/
+/*    left: 50%;*/
+/*    transform: translateX(-50%) translateY(12px);*/
+/*    opacity: 0;*/
+/*    pointer-events: none;*/
+/*    background: rgba(1, 105, 70, 0.90);*/
+/*    backdrop-filter: blur(5px);*/
+
+/*    visibility: hidden;*/
+/*    transition: opacity 0.25s ease, visibility 0.25s ease;*/
+/*    top: calc(100% + 2px);*/
+/*    border-radius: 12px;*/
+/*    width: 150px;*/
+/*    !*max-width: 90vw;*!*/
+/*    max-width: min(92vw, 680px);*/
+/*    z-index: 1000;*/
+/*    overflow: hidden;*/
+/*    box-shadow: 0 4px 12px rgba(0,0,0,0.2);*/
+/*}*/
+
+
+
+/*!* fold fly-out ud når mus pege på link*/
+/*   og hold det folder ud når bagefter flytte mus fra link til fly-out*/
+/*   transform til at få flyout foldet ud og så lige hoppe en tand opad på plads *!*/
+/*.nav-item:hover > .flyout,*/
+/*.nav-item:has(.flyout :focus) > .flyout {*/
+/*    opacity: 1;*/
+/*    transform: translateX(-50%) translateY(0);*/
+/*    pointer-events: auto;*/
+/*}*/
+
+
+/*.nav-item:hover .flyout,*/
+/*.nav-item:focus-within .flyout {*/
+/*    opacity: 1;*/
+/*    visibility: visible;*/
+/*    pointer-events: auto;*/
+/*    transition-delay: 0s;*/
+/*}*/
+
+/*!* Dropdown/fly-out fader ud i stedet for bare at forsvingde *!*/
+/*.nav-item:not(:hover) .flyout {*/
+/*    transition-delay: 0.15s;*/
+/*}*/
+
+/*!* En del af bridge løsning til at gøre dropout/flyout nemmere at aktivere/fange *!*/
+/*.flyout::before {*/
+/*    content: "";*/
+/*    position: absolute;*/
+/*    top: -12px;*/
+/*    left: 0;*/
+/*    right: 0;*/
+/*    height: 12px;*/
+/*}*/
+
+/*!* En del af bridge løsning til at gøre dropout/flyout nemmere at aktivere/fange *!*/
+/*.nav-item--bridge {*/
+/*    position: relative;*/
+/*}*/
+
+/*!* En del af bridge løsning til at gøre dropout/flyout nemmere at aktivere/fange *!*/
+/*.nav-item--bridge .nav-link::after {*/
+/*    content: "";*/
+/*    position: absolute;*/
+/*    left: 0;*/
+/*    right: 0;*/
+/*    bottom: -14px;*/
+/*    height: 14px;*/
+/*    background: transparent;*/
+/*    pointer-events: auto;*/
+/*}*/
+
+/*!* En del af bridge løsning til at gøre dropout/flyout nemmere at aktivere/fange *!*/
+/*.nav-item--bridge .flyout::before {*/
+/*    content: "";*/
+/*    position: absolute;*/
+/*    top: -14px;*/
+/*    left: 0;*/
+/*    right: 0;*/
+/*    height: 14px;*/
+/*    background: transparent;*/
+/*}*/
+
+
+
+
+/*!* Til drop-down Log ind i navigation bar *!*/
+/*.list {*/
+/*    list-style: none;*/
+/*    margin: 0;*/
+/*    padding: 8px;*/
+/*    font-size: 16px;*/
+/*    font-family: "Plus Jakarta Sans", Arial, serif;*/
+/*    line-height: 0.9;*/
+/*    text-align: justify;*/
+/*}*/
+
+/*!* Til drop-down Log ind i navigation bar *!*/
+/*.list a {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    text-decoration: none;*/
+/*    color: inherit;*/
+/*    padding: 10px 12px;*/
+/*    border-radius: 12px;*/
+/*    border: 1px solid transparent;*/
+/*    !*transition: background .2s ease, border .2s ease, color .2s ease;*!*/
+
+/*}*/
+
+/*!* Til drop-down Log ind i navigation bar, hover *!*/
+/*.list a:hover {*/
+/*    background: var(--hover-accent);*/
+/*    color: var(--hover-text);*/
+/*}*/
+
+
+/* layer oven på baggrund til at have slogan tekst på */
+.hero-content {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: calc(3vh);
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* til slagon tekst generelt */
+.hero-text {
+    text-align: center;
+    pointer-events: auto;
+}
+
+
+/* Til <h1 i slogan
+   Dvs store tekst: Danmark mod madspild */
+.hero-text h1 {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: #fff;
+    /*text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);*/
+    text-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
+    margin: 0 0 1rem 0;
+    opacity: 0;
+    /* hvor lang tid fade in tager */
+    animation: fadeInText 2s ease forwards;
+    /* hvor lang tid fra load page til fade ind starter */
+    animation-delay: 2.5s;
+}
+
+
+/* Til <p i slogan
+   Dvs mindre tekst: Hjælp maden med at nå...  */
+.hero-text p {
+    font-size: clamp(1.1rem, 2.5vw, 2rem);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    /*text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);*/
+    text-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    transform: translateY(10px);
+    /* hvor lang tid fade in tager */
+    animation: fadeInSub 2s ease forwards;
+    /* hvor lang tid fra load page til fade ind starter */
+    animation-delay: 3.5s;
+}
+
+/* Fra og til værdier for animation refereret i .hero-text h1
+   Dvs til Danmark mod madspild */
+@keyframes fadeInText {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fra og til værdier for animation refereret i .hero-text p
+   Dvs til: Hjælp maden frem til en ... */
+@keyframes fadeInSub {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hvis screen er smallere end 192, så bliver fly-out dropdowns ikke vist
+   Indtil da er skærmen lige stor nok til at man kan forstå punkterne på dropdown */
+@media (max-width: 192px) {
+
+    .flyout {
+        display: none !important;
+    }
+}
+
+
+
+/* Justering for at sektion 1 ikke bleeder ind i front page */
+
+main {
+    margin-top: 100vh;
+    background: #fff;
+}
+
+
+
+
+/* generelt layout af sektion 1 og 2 osv */
+.info-section {
+    position: relative;
+    z-index: 20;
+    min-height: 100vh;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    padding: calc(var(--header-h) + 2rem) 5vw 3rem;
+    /* beregning der tager hensyn til header i forhold til scroll */
+    scroll-margin-top: calc(var(--header-h) + 10px);
+}
+
+
+
+/* assymmetrisk horisontal deling af skærm i sektion 1 og sektion 2 */
+.info-inner {
+    width: min(1200px, 100%);
+    margin: 0 auto;
+    display: grid;
+    /* her justeres assymmetrien i horisontal deling af skærm i sektion 1 og sektion 2 */
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 2.5rem;
+    align-items: stretch;
+}
+
+/* selve frame til tekst i sektion 1 og sektion 2 */
+.info-text-box {
+    /*background: var(--info-card-bg);*/
+    background: #ffffff;
+
+    border-radius: 10px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, .08);
+    padding: 2rem 2.4rem 2.8rem;
+    color: var(--info-text);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* style til <h2 på tekst i sektion 1 og sektion 2 */
+.info-text-box h2 {
+    margin-bottom: .25rem;
+}
+
+/* style til <p på tekst i sektion 1 og sektion 2 */
+.info-text-box p {
+    line-height: 1.6;
+}
+
+/* knapperne under teksten på sektion 1 og sektion 2 */
+.info-button {
+    margin-top: auto;
+    display: inline-block;
+    background: var(--info-button-bg);
+    color: #fff;
+    text-decoration: none;
+    padding: .6rem 1.4rem;
+    border-radius: 999px;
+    font-weight: 600;
+    transition: transform .15s ease, opacity .15s ease;
+    align-self: flex-start;
+}
+
+.info-button:hover {
+    transform: translateY(-1px);
+    opacity: .95;
+}
+
+/* selve frames til images i sektion 1 og 2 */
+.info-images {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+/* frame parametre til images i sektion 1 og 2 */
+.info-img {
+    border-radius: 16px;
+    flex: 1 1 0;
+    min-height: 150px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #ffffff;
+
+    /*background-color: var(--accent-variant); */
+}
+
+/* image 2 på sektion 1 angives her i CSS for større kontrol med hvordan det fremstår */
+.img-problem-1 {
+    background-image: url("pexels-babydov-7788190_rotten_fruit-removebg-preview.png");
+    background-position: center;
+    background-size: contain;
+}
+
+/* image 2 på sektion 1 angives her i CSS for større kontrol med hvordan det fremstår */
+.img-problem-2 {
+    background-image: url("marek-studzinski-aoU2CWG_Vhc-unsplash_rotten.jpg");
+    /* image vendes */
+    transform: scaleY(-1);
+    background-position: 50% 50%;
+    background-size: 100%;
+}
+
+.info-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+
+/* image 1 på sektion 2 angives her i CSS for større kontrol med hvordan det fremstår */
+.img-solution-1 {
+    background-image: url("pexels-rachel-claire-5865147_community_eating.jpg");
+    background-position: 50% 50%;
+    background-size: 100%;
+}
+
+/* image 2 på sektion 2 angives her i CSS for større kontrol med hvordan det fremstår */
+.img-solution-2 {
+    /*!* hvis vælge hånd som plante gror fra *!*/
+    /*background-image: url("pexels-jakob-schlothane-holding-plant-below.png");*/
+    /*background-position: 75% 30%;*/
+    /*background-size: 55%;*/
+    /*!* image vendes *!*/
+    /*transform: scaleX(-1);*/
+
+
+    /* Hvis vælge kvinde som krammer salal */
+    background-image: url("pexels-olia-danilevich-9004739_food_grab.png");
+    background-position: 40% 30%;
+    background-size: 55%;
+    transform: scaleX(-1);
+
+}
+
+/* For at gøre responsive. Der er rester her fra tidligere eksperimenter */
+@media (max-width: 980px) {
+    .info-inner {
+        grid-template-columns: 1fr;
+    }
+
+    .info-images {
+        flex-direction: row;
+    }
+
+    .info-img {
+        min-height: 140px;
+    }
+}
+
+@media (max-width: 640px) {
+    .info-section {
+        padding: calc(var(--header-h) + 1.2rem) 1.2rem 2rem;
+    }
+
+    .info-images {
+        flex-direction: column;
+    }
+}
+

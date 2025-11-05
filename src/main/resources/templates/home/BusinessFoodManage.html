@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Fødevarer til afhentning</title>
+    <link rel="icon" type="image/x-icon" href="/img/org-logo.png">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+
+<!-- TOPBAR (grøn med to logoer ved siden af hinanden) -->
+<div class="topbar-green">
+    <div class="topbar-inner">
+
+        <div class="logo-wrap">
+            <!-- Organisations-logo (link) -->
+            <a href="/" class="brand">
+                <img src="/img/org-logo.png" alt="Organisation logo">
+            </a>
+
+            <!-- Virksomheds-logo (ikke link) -->
+            <img class="tenant-logo" src="/img/company-logo.png" alt="Virksomhed logo">
+        </div>
+
+    </div>
+</div>
+
+<header class="topbar">
+    <h1 class="org-name">BrødKunsten</h1>
+    <p class="org-address">jagtvej 94</p>
+    <h2 class="page-title">Fødevarer til afhentning</h2>
+    <p class="subtitle">Opret, rediger og fjern overskydende mad</p>
+</header>
+
+<main class="container">
+    <!-- Filtre + søg -->
+    <section class="card">
+        <form method="get" class="filters">
+            <label class="chip">
+                <input type="checkbox" name="category" value="vegansk"
+                       th:checked="${activeCategories.contains('vegansk')}" />
+                Vegansk
+            </label>
+
+            <label class="chip">
+                <input type="checkbox" name="category" value="vegetarisk"
+                       th:checked="${activeCategories.contains('vegetarisk')}" />
+                Vegetarisk
+            </label>
+
+            <label class="chip">
+                <input type="checkbox" name="category" value="andet"
+                       th:checked="${activeCategories.contains('andet')}" />
+                Andet
+            </label>
+
+            <input class="search" type="search" name="q" placeholder="Søg navn/beskrivelse"
+                   th:value="${q}" />
+            <button class="btn ghost" type="submit">Opdater</button>
+            <button class="btn ghost" type="button" onclick="window.print()">Print</button>
+        </form>
+    </section>
+
+    <!-- Formular til opret/rediger -->
+    <section class="card form">
+        <h2 th:text="${form.id} != null ? 'Rediger fødevare' : 'Ny fødevare'"></h2>
+
+        <form method="post" th:action="@{/save}" th:object="${form}">
+            <input type="hidden" th:field="*{id}" />
+            <div class="grid">
+                <label class="full">Navn
+                    <input type="text" th:field="*{name}" placeholder="Fx Økologisk surdejsbrød" required />
+                </label>
+
+                <label>Kategori
+                    <select th:field="*{category}">
+                        <option value="vegansk">Vegansk</option>
+                        <option value="vegetarisk">Vegetarisk</option>
+                        <option value="andet">Andet</option>
+                    </select>
+                </label>
+
+                <label>Antal
+                    <input type="number" min="1" th:field="*{qty}" />
+                </label>
+
+                <label>Kg
+                    <input type="number" min="0" step="0.01" th:field="*{kg}" />
+                </label>
+
+                <label>Pris (kr)
+                    <input type="number" min="0" step="0.01" th:field="*{price}" />
+                </label>
+
+                <label>Afhentningstid
+                    <input type="datetime-local"
+                           th:value="${form.pickup != null} ? ${#temporals.format(form.pickup, 'yyyy-MM-dd\'T\'HH:mm')}"
+                           name="pickup" />
+                </label>
+
+                <label class="full">Beskrivelse
+                    <textarea rows="3" th:field="*{desc}" placeholder="Fx Indeholder gluten"></textarea>
+                </label>
+            </div>
+
+            <div class="actions">
+                <button class="btn primary" type="submit">Gem</button>
+                <a th:if="${form.id != null}" th:href="@{'/'}" class="btn ghost">Annullér</a>
+            </div>
+        </form>
+    </section>
+
+    <!-- Liste med items -->
+    <section class="card">
+        <div class="list-head">
+            <h2>Tilgængelige fødevarer</h2>
+            <span id="count" th:text="${count} + ' resultater'"></span>
+        </div>
+
+        <ul class="list">
+            <li class="item" th:each="i : ${items}">
+                <h3 th:text="${i.name}">Navn</h3>
+
+                <span class="badge" th:text="${i.category}">Kategori</span>
+                <span class="qty meta"><strong th:text="${i.qty}">1</strong> stk</span>
+                <span class="meta" th:text="${#numbers.formatDecimal(i.kg,1,2)} + ' kg'">0.00 kg</span>
+                <span class="meta" th:text="${#numbers.formatDecimal(i.price,1,2)} + ' kr'">0.00 kr</span>
+
+                <span class="pickup meta"
+                      th:text="${i.pickup != null} ? ${#temporals.format(i.pickup,'dd.MM.yyyy HH:mm')} : '—'">—</span>
+
+                <div class="controls">
+                    <a class="btn small ghost" th:href="@{'/edit/' + ${i.id}}">Rediger</a>
+                    <form method="post" th:action="@{'/delete/' + ${i.id}}" style="display:inline">
+                        <button class="btn small warn" type="submit">Slet</button>
+                    </form>
+                </div>
+
+                <div class="desc meta" th:text="${i.desc}">—</div>
+            </li>
+        </ul>
+    </section>
+
+    <footer class="footer">Danmark mod Madspild · Business Admin</footer>
+</main>
+</body>
+</html>

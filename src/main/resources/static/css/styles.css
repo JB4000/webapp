@@ -1,0 +1,198 @@
+/* --- Light (hvid) tema med blå/grønne accenter og bg-billede --- */
+:root{
+    --primary-900:#0a1a33;
+    --primary-700:#123764;
+    --primary-600:#16508c;
+    --primary-300:#4f8fd7;
+
+    --green-700:#2e7d32;       /* topbar + øko-grøn */
+    --green-600:#3a7a41;
+
+    --bg-100:#ffffff;
+    --bg-card:#ffffff;
+
+    --text-900:#0f172a;
+    --text-600:#334155;
+    --text-400:#64748b;
+
+    --round:18px;
+    --shadow:0 6px 20px rgba(0,0,0,.05);
+}
+
+/* baggrund med billede + lys overlay */
+body::before{
+    content:"";
+    position:fixed; inset:0;
+    background:
+            linear-gradient(180deg, rgba(255,255,255,.96) 0%, rgba(255,255,255,.92) 40%, rgba(255,255,255,.9) 100%),
+            url("/img/donermad.png") center/cover no-repeat fixed;
+    z-index:-1;
+    filter:saturate(1.05);
+}
+
+/* reset & base */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+    margin:0;
+    font:16px/1.5 system-ui;
+    color:var(--text-900);
+    background:var(--bg-100);
+}
+
+/* -------- Grøn topbar med to logoer side-om-side -------- */
+.topbar-green{
+    background:var(--green-700);
+    border-bottom:1px solid rgba(0,0,0,.06);
+    padding:0;
+}
+.topbar-inner{
+    width:min(1100px, 94%);
+    margin:0 auto;
+    height:66px;
+    display:flex;
+    align-items:center;
+    justify-content:center;      /* centrer indholdet */
+}
+.logo-wrap{
+    display:flex;
+    align-items:center;
+    gap:18px;                    /* afstand mellem logoer */
+}
+.topbar-green img{
+    height:42px;
+    display:block;
+    object-fit:contain;
+}
+/* Organisations-logo (link) – ingen filter/invert, altid synligt */
+.topbar-green .brand img{ filter:none; }
+/* Virksomhedslogo (ikke link) */
+.topbar-green .tenant-logo{ filter:none; }
+
+@media(max-width:520px){
+    .topbar-inner{ height:54px; }
+    .topbar-green img{ height:30px; }
+    .logo-wrap{ gap:12px; }
+}
+
+/* header sektion (under topbar) */
+.topbar{
+    padding:20px 16px 6px;
+    text-align:center;
+}
+.org-name{
+    font-size:clamp(28px, 4vw, 42px);
+    margin:0;
+    font-weight:700;
+    color:#3a7a41;               /* grøn titel */
+}
+.org-address{
+    margin:4px 0 12px;
+    color:var(--text-400);
+    font-size:14px;
+}
+.page-title{
+    margin:0 0 6px;
+    font-size:clamp(22px, 3vw, 32px);
+    color:var(--text-900);
+}
+.subtitle{ margin:0; color:var(--text-600); }
+
+/* layout */
+.container{
+    width:min(1000px, 92%);
+    margin: 12px auto 64px;
+    display:grid;
+    gap:16px;
+}
+
+/* card */
+.card{
+    background:var(--bg-card);
+    border-radius:var(--round);
+    padding:18px;
+    box-shadow:var(--shadow);
+    border:1px solid #e6e6e6;
+}
+h2{ margin:0 0 12px; font-size:20px; }
+
+/* filtre + søg */
+.filters{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+.search{
+    margin-left:auto;
+    min-width:220px;
+    border:1px solid #d0d7e6; border-radius:12px; padding:10px 12px;
+    background:#fff; color:var(--text-900);
+}
+.chip{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid #d7e3fb; padding:8px 12px; border-radius:999px;
+    background:#eaf2ff; color:var(--primary-700); cursor:pointer;
+}
+.chip input{ accent-color:var(--primary-600); }
+
+/* form grid */
+.grid{ display:grid; gap:12px; grid-template-columns: repeat(4, minmax(0,1fr)); }
+.grid label{ display:flex; flex-direction:column; gap:6px; font-size:14px; color:var(--text-600); }
+.grid input, .grid select, .grid textarea{
+    border:1px solid #cfd6e4; border-radius:12px; padding:10px 12px;
+    background:#fff; color:var(--text-900);
+}
+.grid .full{ grid-column:1 / -1; }
+.actions{ display:flex; gap:10px; margin-top:8px; }
+
+/* knapper */
+.btn{ border:1px solid transparent; border-radius:12px; padding:10px 14px; cursor:pointer; font-weight:600; }
+.btn.primary{ background:var(--primary-600); color:#fff; }
+.btn.primary:hover{ background:var(--primary-700); }
+.btn.ghost{ background:#fff; border:1px solid #d0d7e6; color:var(--text-600); }
+.btn.ghost:hover{ border-color:var(--primary-300); color:var(--primary-700); }
+.btn.small{ padding:7px 10px; border-radius:10px; font-size:13px; }
+.btn.warn{ background:#fff; color:#b42318; border:1px solid #ffd3cf; }
+.btn.warn:hover{ background:#fff3f2; }
+
+/* liste */
+.list{ list-style:none; margin:0; padding:0; display:grid; gap:10px; }
+.item{
+    display:grid; gap:10px; align-items:center;
+    grid-template-columns: 1.4fr .8fr .6fr .6fr .6fr .9fr auto;
+    border:1px solid #e5e7eb; border-radius:14px; background:#fff; padding:12px 14px;
+}
+.item h3{ margin:0; font-size:16px; color:var(--text-900); }
+.meta{ color:var(--text-400); font-size:13px; }
+
+.badge{
+    background:#e8f1ff; color:var(--primary-700);
+    padding:4px 10px; border-radius:999px;
+    font-weight:600; font-size:12px;
+}
+.item .controls{ display:flex; gap:8px; }
+
+/* list head */
+.list-head{ display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; }
+#count{ color:var(--text-400); }
+
+/* footer */
+.footer{ text-align:center; padding:24px; color:var(--text-400); }
+
+/* responsive */
+@media (max-width: 820px){
+    .grid{ grid-template-columns: repeat(2, 1fr); }
+    .item{ grid-template-columns: 1.2fr .6fr .6fr .6fr .6fr auto; }
+    .item .desc{ display:none; }
+}
+@media (max-width: 520px){
+    .filters{ gap:8px; }
+    .search{ min-width: 140px; }
+    .item{ grid-template-columns: 1fr auto; row-gap:6px; }
+    .badge, .qty, .pickup{ justify-self:start; }
+}
+
+/* print */
+@media print {
+    .topbar-green, .filters, .form, .actions, .controls, .footer { display: none !important; }
+    body { background: white !important; }
+    .card { box-shadow: none !important; border: 1px solid #ccc; }
+    body::before { display: none !important; }
+    * { color: #000 !important; }
+}
