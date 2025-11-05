@@ -10,51 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
-        body::before {
 
-            background-image: none;
-        }
-        @keyframes blurAndDarken {
-            from {
-                background-image: none;
-            }
-            to {
-                background-image: none;
-            }
-        }
-        input {
-            padding: 10px;
-            width: 100%;
-            font-size: 17px;
-            border: 1px solid #aaaaaa;
-        }
-
-        input.invalid {
-            background-color: #ffdddd;
-        }
-
-        .tab {
-            display: none;
-        }
-
-        .step {
-            height: 15px;
-            width: 15px;
-            margin: 0 2px;
-            background-color: #bbbbbb;
-            border: none;
-            border-radius: 50%;
-            display: inline-block;
-            opacity: 0.5;
-        }
-
-        .step.active {
-            opacity: 1;
-        }
-
-        .step.finish {
-            background-color: #04AA6D;
-        }
 
         .flex-center {
             display: flex;
@@ -63,7 +19,8 @@
             min-height: 100vh;
             position: relative;
             padding: 2rem;
-            width: 55%;
+            width: 100%;
+            z-index: 1;
         }
 
         .container {
@@ -73,96 +30,25 @@
             width: 80%;
             max-width: 600px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 1;
         }
 
 
         .container h1 {
             text-align: center;
+            z-index: 1;
         }
 
-        .error-popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #ffdddd;
-            color: #900;
-            padding: 1.5rem 2rem;
-            border: 2px solid #900;
+        input {
+            padding: 10px;
+            width: 100%;
+            font-size: 17px;
+            border: 1px solid rgb(255, 255, 255);
+            box-sizing: border-box;
             border-radius: 8px;
-            z-index: 1000;
-            text-align: center;
-            font-weight: bold;
         }
-
-        .error-popup button {
-            margin-top: 1rem;
-            padding: 0.5rem 1rem;
-            background: #900;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        body {
-            background-image: none;
-            margin: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-
-        .site-header {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-        }
-        .nav {
-            display: flex;
-            width: 100%;
-            justify-content: flex-end;
-        }
-
-        .nav-list {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            width: 100%;
-        }
-
-        .nav-item {
-            margin-left: 1rem;
-        }
-
-        .side-image {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 45%;
-            height: 100vh;
-            overflow: hidden;
-            z-index: 0;
-        }
-
-        .side-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-        }
-
-
 
         @media (max-width: 900px) {
-
-            .side-image {
-                position: relative;
-                width: 80%;
-                height: 20%;
-            }
 
 
             .flex-center {
@@ -170,151 +56,90 @@
                 flex-direction: column;
                 align-items: center;
             }
-            .site-header {
-                position: relative;
-            }
 
         }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+            url('/pexels-mikhail-nilov-8543136_hands_holding_plant.jpg');
+            filter: blur(5px);
+            z-index: 0;
+        }
+        @keyframes blurAndDarken {
+            from {
+                filter: blur(5px);
+                z-index: 0;
+            }
+            to {
+                filter: blur(5px);
+                z-index: 0;
+            }
+        }
+
+        .button {
+            margin-top: 10px;
+            background-color: #00426e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin-left: auto;
+
+        }
+        .button:hover {
+            background-color: #12598e;
+
+        }
+
+
+
     </style>
 </head>
 <body>
+
 <header class="site-header">
     <nav class="nav" aria-label="Primary">
-
+        <!-- Logo helt til venstre i top menu, der fungerer som link -->
         <a href="/" class="nav-logo">
             <img src="/img/org-logo.png" alt="Logo">
         </a>
-
-        <ul class="nav-list" role="menubar" aria-label="Main">
-            <li class="nav-item" role="none">
-                <a class="nav-link" role="menuitem" aria-haspopup="true" aria-expanded="false" href="#">▾</a>
-            </li>
-        </ul>
     </nav>
 </header>
 
-<form id="regForm" action="">
+<form id="regForm" action="BusinessFoodManage" METHOD="get">
     <div class="flex-center">
         <div class="container">
+
             <h1>Registrer Virksomhed</h1>
+            <label for="FirmaNavn">Firma Navn:</label>
+            <input class="input" placeholder="Skriv Firma Navn..." type="text" id="FirmaNavn"
+                   pattern="[A-ZÆØÅa-zæøå]{1,}"
+                   title="One or more characters"
+                   required>
 
-            <div class="tab">Name:
-                <p><input placeholder="Fornavn..."></p>
-                <p><input placeholder="Efternavn..."></p>
-            </div>
+            <label for="mail">Email:</label>
+            <input placeholder="Skriv Email..." type="text" id="mail"
+                   pattern="[A-ZÆØÅa-zæøå0-9._%+\-]+@[A-ZÆØÅa-zæøå0-9.\-]+\.[A-Za-z]{2,}"
+                   title="please include a proper email of the following format mail@provider.xx"
+                   required>
 
-            <div class="tab">Contact Info:
-                <p><input placeholder="E-mail..."></p>
-                <p><input placeholder="Telefonnummer..."></p>
-            </div>
+            <label for="pwd">Adgangskode:</label>
+            <input placeholder="Skriv Adgangskode..." type="password" id="pwd"
+                   pattern=".{8,}"
+                   title="Eight or more characters"
+                   required>
 
-            <div class="tab">Company Information:
-                <p><input placeholder="Firma Navn..."></p>
-                <p><input placeholder="Firma Adresse..."></p>
-                <p><input placeholder="Firma Type..."></p>
-            </div>
+                    <button class="button" type="submit">Submit</button>
 
-            <div class="tab">Login Info:
-                <p><input placeholder="Brugernavn..."></p>
-                <p><input type="password" placeholder="Kodeord..."></p>
-                <p><input type="password" placeholder="Gentag Kodeord..."></p>
-            </div>
-
-            <div style="display: flex; justify-content: flex-end; margin-top: 1rem;">
-                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Forrige</button>
-                <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-            </div>
-
-            <div style="text-align:center;margin-top:40px;">
-                <span class="step"></span>
-                <span class="step"></span>
-                <span class="step"></span>
-                <span class="step"></span>
-            </div>
         </div>
     </div>
-
-    <div class="side-image">
-        <img src="/supermarketworking.jpg" alt="">
-    </div>
 </form>
-
-<div id="popup" class="error-popup">
-    <span id="popupMessage"></span><br>
-    <button onclick="closePopup()">OK</button>
-</div>
-
-<script>
-    var currentTab = 0;
-    showTab(currentTab);
-
-    function showTab(n) {
-        var x = document.getElementsByClassName("tab");
-        x[n].style.display = "block";
-        document.getElementById("prevBtn").style.display = n == 0 ? "none" : "inline";
-        document.getElementById("nextBtn").innerHTML = n == (x.length - 1) ? "Registrer" : "Næste";
-        fixStepIndicator(n);
-    }
-
-    function nextPrev(n) {
-        var x = document.getElementsByClassName("tab");
-        if (n == 1 && !validateForm()) return false;
-        x[currentTab].style.display = "none";
-        currentTab += n;
-        if (currentTab >= x.length) {
-            window.location.href = "/BusinessFoodManage";
-            return false;
-        }
-        showTab(currentTab);
-    }
-
-    function validateForm() {
-        let x, y, i, valid = true;
-        x = document.getElementsByClassName("tab");
-        y = x[currentTab].getElementsByTagName("input");
-
-        for (i = 0; i < y.length; i++) {
-            if (y[i].value === "") {
-                y[i].className += " invalid";
-                valid = false;
-            }
-        }
-
-        if (currentTab === 1) {
-            var email = y[0].value;
-            if (!email.includes('@')) {
-                showPopup("Email must contain '@'");
-                valid = false;
-            }
-        }
-
-        if (currentTab === 3) {
-            var password = y[1].value;
-            var confirmPassword = y[2].value;
-            if (password !== confirmPassword) {
-                showPopup("Passwords do not match");
-                valid = false;
-            }
-        }
-
-        if (valid) document.getElementsByClassName("step")[currentTab].className += " finish";
-        return valid;
-    }
-
-    function fixStepIndicator(n) {
-        var i, x = document.getElementsByClassName("step");
-        for (i = 0; i < x.length; i++) x[i].className = x[i].className.replace(" active", "");
-        x[n].className += " active";
-    }
-
-    function showPopup(message) {
-        document.getElementById('popupMessage').innerText = message;
-        document.getElementById('popup').style.display = 'block';
-    }
-
-    function closePopup() {
-        document.getElementById('popup').style.display = 'none';
-    }
-</script>
 </body>
 </html>
