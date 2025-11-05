@@ -259,4 +259,14 @@ footer {
     border-top: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+.site-header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    background: var(--accent);
+    /*transition: background 0.3s ease;*/
+    padding: 0.35rem 1.5rem;
+}
+
 
